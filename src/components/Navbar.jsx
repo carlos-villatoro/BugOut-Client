@@ -1,7 +1,15 @@
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
 
 export default function Navbar({ currentUser, handleLogout }) {
-	 const loggedIn = (
+	const [nav, setNav] = useState(true)
+
+	const handleNav = () =>{
+		setNav(!nav)
+	}
+
+	const loggedIn = (
 		<>
 			{/* if the user is logged in... */}
 			<Link to="/">
@@ -12,9 +20,9 @@ export default function Navbar({ currentUser, handleLogout }) {
 				profile
 			</Link>
 		</>
-	 )
+	)
 
-	 const loggedOut = (
+	const loggedOut = (
 		<>
 			{/* if the user is not logged in... */}
 			<Link to="/register">
@@ -25,16 +33,47 @@ export default function Navbar({ currentUser, handleLogout }) {
 				login
 			</Link>
 		</>
-	 )
+	)
 
 	return (
-		<nav>
+		<div className='text-white flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4'>
 			{/* user always sees this section */}
 			<Link to="/">
-				<p>User App</p>
+				<h1 className='w-full text-3xl font-bold text-[#00df9a] '>BugOut</h1>
 			</Link>
 
-			{currentUser ? loggedIn : loggedOut}
-		</nav>
+			<ul className='hidden md:flex'>
+				<li className='p-4'>Projects</li>
+				<li className='p-4'>Bugs</li>
+				<li className='p-4'>Profile</li>
+
+			</ul>
+
+			{/* mobile menu */}
+			<div onClick={handleNav} className='block md:hidden'>
+				{ nav ? <AiOutlineMenu size={20}/> : <AiOutlineClose size={20} /> }
+				
+			</div>
+			<div className={
+					nav ? 
+					'fixed left-0 top-0 w-[20%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500' : 
+					'fixed left-[-100%] md:hidden' 
+					}>
+				<Link to="/">
+					<h1 className='w-full text-3xl font-bold text-[#00df9a] m-4'>BugOut</h1>
+				</Link>
+
+				<ul className=' uppercase p-4'>
+					<li className='p-4 border-b border-gray-600'>Projects</li>
+					<li className='p-4 border-b border-gray-600'>Bugs</li>
+					<li className='p-4 border-b border-gray-600'>Profile</li>
+				</ul>
+			</div>
+			{/* <nav>
+
+				{currentUser ? loggedIn : loggedOut}
+			</nav> */}
+
+		</div>
 	)
 }

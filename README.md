@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# Bug Out
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Description
+#### BugOut is a development project and bug management system. Users will be able to submit, track and resolve issues easily. Bugs can be created with different priority levels and have its working status changed as the issue becomes resolved. Projects can have a feed of issues with team commentary. Users will be able to sign up as managers or members, each with different permissions.
+---
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## ERDs
+![Routing Chart](./public/images/ERDs.jpg)
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Restful Routing Chart
+![Routing Chart](./public/images/RESTful-Routing-Chart.jpg)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Wireframes
+![Wireframes](public/images/Wireframes.jpg)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## User Stories
+As a user:
+- I want to sign up as a manager or member
+- I want log in and see all projects in the tracker
+- I want to be authorized to manager roles or member roles
+- As a manager, I want to create projects and be able to close bugs
+- As a member, I want to create bugs and update statuses
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- On my manager profile, I want to see my own projects with a form to add new ones
+- On my member profile, I want to see my projects that I am assigned to with a form to add a bug to that project
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- I want to be able to stay signed in for a certain duration
+- I want to be able to log out
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## MVP Goals
+- a login page with authentication methods 
+- authorized page views based on login credentials
+- ability to show all projects
+- ability to only see 'assigned'/'owned' projects
+- ability to add projects if authorized
+- ability to add bugs if authorized
+- ability to close bugs if authorized
+- ability to sort projects and bugs
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Stretch Goals
+- dark mode
+- tailwind styling
+- Carousel on /project 

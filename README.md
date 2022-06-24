@@ -1,4 +1,4 @@
-# Bug Out
+# BugOut
 
 ### Description
 #### BugOut is a development project and bug management system. Users will be able to submit, track and resolve issues easily. Bugs can be created with different priority levels and have its working status changed as the issue becomes resolved. Projects can have a feed of issues with team commentary. Users will be able to sign up as managers or members, each with different permissions.

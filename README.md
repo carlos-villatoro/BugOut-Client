@@ -49,6 +49,7 @@ As a user:
 ---
 
 ## Stretch Goals
+- mobile friendly/responsive front end
 - dark mode
 - tailwind styling
 - Carousel on /project 

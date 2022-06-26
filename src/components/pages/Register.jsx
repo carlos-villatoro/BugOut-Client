@@ -17,7 +17,7 @@ export default function Register({ currentUser, setCurrentUser }) {
 			// post fortm data to the backend
 			const reqBody = {
 				name,
-				email, 
+				email,
 				password
 			}
 			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/register`, reqBody)
@@ -40,7 +40,7 @@ export default function Register({ currentUser, setCurrentUser }) {
 				}
 			}
 		}
- 	}
+	}
 
 	// conditionally render a navigate component
 	if (currentUser) {
@@ -48,14 +48,14 @@ export default function Register({ currentUser, setCurrentUser }) {
 	}
 
 	return (
-		<div>
-			<h1>Register for an account:</h1>
+		<div className="flex justify-center  flex-col">
+			<h1 className='flex items-center flex-col'>Register for an account:</h1>
 
 			<p>{msg}</p>
 
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} className="flex items-center flex-col">
 				<label htmlFor='name'>Name:</label>
-				<input 
+				<input
 					type="text"
 					id="name"
 					placeholder='your username...'
@@ -64,7 +64,7 @@ export default function Register({ currentUser, setCurrentUser }) {
 				/>
 
 				<label htmlFor='email'>Email:</label>
-				<input 
+				<input
 					type="email"
 					id="email"
 					placeholder='your email...'
@@ -73,7 +73,7 @@ export default function Register({ currentUser, setCurrentUser }) {
 				/>
 
 				<label htmlFor='password'>Password:</label>
-				<input 
+				<input
 					type="password"
 					id="password"
 					placeholder='password...'

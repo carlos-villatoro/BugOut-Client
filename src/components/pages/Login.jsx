@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
-import { Navigate } from 'react-router-dom'
+import { Navigate, Link } from 'react-router-dom'
 
 export default function Login({ currentUser, setCurrentUser }) {
 	// state for the controlled form
@@ -18,18 +18,18 @@ export default function Login({ currentUser, setCurrentUser }) {
 				email,
 				password
 			}
-			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/login`, reqBody)
+			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/login`, reqBody)
 
 			// save the token in localstorage
 			const { token } = response.data
 			localStorage.setItem('jwt', token)
-
+			console.log(token)
 			// decode the token
 			const decoded = jwt_decode(token)
 
 			// set the user in App's state to be the decoded token
 			setCurrentUser(decoded)
-
+			// console.log(currentUser)
 		} catch (err) {
 			console.warn(err)
 			if (err.response) {
@@ -72,6 +72,7 @@ export default function Login({ currentUser, setCurrentUser }) {
 
 				<button type="submit">Login</button>
 			</form>
+			<p className='flex items-center flex-col'>Don't have an account? <Link to='/register'>Register One Now</Link></p>
 		</div>
 	)
 }

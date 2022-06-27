@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 import Login from './components/pages/Login'
 import Profile from './components/pages/Profile'
 import Register from './components/pages/Register'
-import Welcome from './components/pages/Welcome'
+import Dashboard from './components/pages/Dashboard'
 import Navbar from './components/Navbar'
 import jwt_decode from 'jwt-decode'
 
@@ -52,7 +52,7 @@ function App() {
         <Routes>
           <Route 
             path="/"
-            element={<Welcome />}
+            element={<Dashboard />}
           />
 
           <Route 

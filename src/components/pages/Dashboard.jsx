@@ -1,4 +1,4 @@
-export default function Welcome() {
+export default function Dashboard() {
 	return (
 		<div>
 			hello from welcome

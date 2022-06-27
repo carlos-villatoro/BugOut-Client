@@ -36,10 +36,10 @@ export default function Navbar({ currentUser, handleLogout }) {
 	)
 
 	return (
-		<div className='text-white flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4'>
+		<div className='text-[#00E331] flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4'>
 			{/* user always sees this section */}
 			<Link to="/">
-				<h1 className='w-full text-3xl font-bold text-[#00df9a] '>BugOut</h1>
+				<h1 className='w-full text-3xl font-bold text-[#00E331]' id="logo">BugOut</h1>
 			</Link>
 
 			<ul className='hidden md:flex'>

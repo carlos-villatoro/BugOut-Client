@@ -17,13 +17,16 @@ export default function Navbar({ currentUser, handleLogout }) {
 			</Link> */}
 
 			<ul className='hidden md:flex'>
-				<li className='p-4'>Projects</li>
-				<li className='p-4'>Bugs</li>
-				<li className='p-4'>Profile</li>
-				<li className='p-4 ring-2 border-gray-600'><Link to="/">
-						<span onClick={handleLogout}>logout</span>
+			<li className='p-4 border-b border-gray-600'><Link to="/projects">
+						Project</Link> </li>
+					<li className='p-4 border-b border-gray-600'><Link to="/bugs">
+						Bugs</Link> </li>
+					<li className='p-4 border-b border-gray-600'><Link to="/profile">
+						Profile</Link> </li>
+					<li className='p-4 ring-2 border-gray-600'><Link to="/">
+						<span onClick={handleLogout}>Logout</span>
 						</Link> 
-				</li>
+					</li>
 
 			</ul>
 
@@ -42,9 +45,12 @@ export default function Navbar({ currentUser, handleLogout }) {
 				</Link>
 
 				<ul className=' uppercase p-4'>
-					<li className='p-4 border-b border-gray-600'>Projects</li>
-					<li className='p-4 border-b border-gray-600'>Bugs</li>
-					<li className='p-4 border-b border-gray-600'>Profile</li>
+					<li className='p-4 border-b border-gray-600'><Link to="/projects">
+						Project</Link> </li>
+					<li className='p-4 border-b border-gray-600'><Link to="/bugs">
+						Bugs</Link> </li>
+					<li className='p-4 border-b border-gray-600'><Link to="/profile">
+						Profile</Link> </li>
 					<li className='p-4 ring-2 border-gray-600'><Link to="/">
 						<span onClick={handleLogout}>Logout</span>
 						</Link> 

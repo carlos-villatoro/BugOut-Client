@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import ManagerProfile from '../partials/ManagerProfile'
+import MemberProfile from '../partials/MemberProfile'
 
 export default function Profile({ currentUser, handleLogout }) {
 	// state for the secret message (aka user privilaged data)

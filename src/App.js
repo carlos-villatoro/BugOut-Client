@@ -23,7 +23,6 @@ function App() {
     if (token) {
       // if so, we will decode it and set the user in app state
       setCurrentUser(jwt_decode(token))
-
     } else {
       setCurrentUser(null)
     }

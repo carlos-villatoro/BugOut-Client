@@ -11,6 +11,7 @@ import Register from './components/pages/Register'
 import Dashboard from './components/pages/Dashboard'
 import Navbar from './components/Navbar'
 import jwt_decode from 'jwt-decode'
+import Project from './components/pages/Project'
 
 function App() {
   // the currently logged in user will be stored up here in state
@@ -64,6 +65,11 @@ function App() {
           <Route
             path="/login"
             element={<Login currentUser={currentUser} setCurrentUser={setCurrentUser} />}
+          />
+
+          <Route
+            path="/project"
+            element={<Project currentUser={currentUser} setCurrentUser={setCurrentUser} />}
           />
 
           {/* conditionally render auth locked routes */}

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
 
 export default function Navbar({ currentUser, handleLogout }) {
-	const [nav, setNav] = useState(true)
+	const [nav, setNav] = useState(false)
 
 	const handleNav = () => {
 		setNav(!nav)
@@ -17,7 +17,7 @@ export default function Navbar({ currentUser, handleLogout }) {
 			</Link> */}
 
 			<ul className='hidden md:flex'>
-			<li className='p-4 border-b border-gray-600'><Link to="/projects">
+			<li className='p-4 border-b border-gray-600'><Link to="/project">
 						Project</Link> </li>
 					<li className='p-4 border-b border-gray-600'><Link to="/bugs">
 						Bugs</Link> </li>
@@ -45,7 +45,7 @@ export default function Navbar({ currentUser, handleLogout }) {
 				</Link>
 
 				<ul className=' uppercase p-4'>
-					<li className='p-4 border-b border-gray-600'><Link to="/projects">
+					<li className='p-4 border-b border-gray-600'><Link to="/project">
 						Project</Link> </li>
 					<li className='p-4 border-b border-gray-600'><Link to="/bugs">
 						Bugs</Link> </li>

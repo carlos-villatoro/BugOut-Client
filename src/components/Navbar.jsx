@@ -5,7 +5,7 @@ import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
 export default function Navbar({ currentUser, handleLogout }) {
 	const [nav, setNav] = useState(true)
 
-	const handleNav = () =>{
+	const handleNav = () => {
 		setNav(!nav)
 	}
 
@@ -51,14 +51,14 @@ export default function Navbar({ currentUser, handleLogout }) {
 
 			{/* mobile menu */}
 			<div onClick={handleNav} className='block md:hidden'>
-				{ !nav ? <AiOutlineMenu size={20}/> : <AiOutlineClose size={20} /> }
-				
+				{!nav ? <AiOutlineMenu size={20} /> : <AiOutlineClose size={20} />}
+
 			</div>
 			<div className={
-					nav ? 
-					'fixed left-0 top-0 w-[30%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500 md:hidden' : 
-					'fixed left-[-100%] md:hidden' 
-					}>
+				nav ?
+					'fixed left-0 top-0 w-[30%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500 md:hidden' :
+					'fixed left-[-100%] md:hidden'
+			}>
 				<Link to="/">
 					<h1 className='w-full text-3xl font-bold text-[#00E331] m-4 mt-7 pt-px'>BugOut</h1>
 				</Link>

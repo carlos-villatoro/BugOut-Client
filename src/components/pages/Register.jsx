@@ -1,35 +1,37 @@
 import { useState } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
-import { Navigate } from 'react-router-dom'
+import { Navigate, Link } from 'react-router-dom'
 
 export default function Register({ currentUser, setCurrentUser }) {
 	// state for the controlled form
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [role, setRole] = useState('')
 	const [msg, setMsg] = useState('')
 
 	// submit event handler
 	const handleSubmit = async e => {
 		e.preventDefault()
 		try {
-			// post fortm data to the backend
+			// post form data to the backend
 			const reqBody = {
 				name,
 				email,
-				password
+				password,
+				role
 			}
-			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/register`, reqBody)
-
+			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/register`, reqBody)
+			// console.log(reqBody)
 			// save the token in localstorage
 			const { token } = response.data
 			localStorage.setItem('jwt', token)
 
-			// decode the token
+			// // decode the token
 			const decoded = jwt_decode(token)
 
-			// set the user in App's state to be the decoded token
+			// // set the user in App's state to be the decoded token
 			setCurrentUser(decoded)
 
 		} catch (err) {
@@ -80,9 +82,29 @@ export default function Register({ currentUser, setCurrentUser }) {
 					onChange={e => setPassword(e.target.value)}
 					value={password}
 				/>
+				<div>
+					<p>Role:</p>
+					<input
+						type='radio'
+						id='member'
+						name='role'
+						onChange={e => setRole(e.target.value)}
+						value='member'
+					/>
+					<label htmlFor='member'>Member</label>
+					<input
+						type='radio'
+						id='manager'
+						name='role'
+						onChange={e => setRole(e.target.value)}
+						value='manager'
+					/>
+					<label htmlFor='manager'>Manager</label>
+				</div>
 
 				<button type="submit">Register</button>
 			</form>
+			<p className='flex items-center flex-col'>Already have an account? <Link to='/login'>Login Now</Link></p>
 		</div>
 	)
 }

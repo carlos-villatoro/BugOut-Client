@@ -12,42 +12,18 @@ export default function Navbar({ currentUser, handleLogout }) {
 	const loggedIn = (
 		<>
 			{/* if the user is logged in... */}
-			<Link to="/">
+			{/* <Link to="/">
 				<span onClick={handleLogout}>logout</span>
-			</Link>
-
-			<Link to="/profile">
-				profile
-			</Link>
-		</>
-	)
-
-	const loggedOut = (
-		<>
-			{/* if the user is not logged in... */}
-			<Link to="/register">
-				register
-			</Link>
-
-			<Link to="/login">
-				login
-			</Link>
-		</>
-	)
-
-	return (
-		<div className='text-[#00E331] flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4'>
-			{/* user always sees this section */}
-			<Link to="/">
-
-				<h1 className='w-full text-3xl font-bold text-[#00E331]' id="logo">BugOut</h1>
-
-			</Link>
+			</Link> */}
 
 			<ul className='hidden md:flex'>
 				<li className='p-4'>Projects</li>
 				<li className='p-4'>Bugs</li>
 				<li className='p-4'>Profile</li>
+				<li className='p-4 ring-2 border-gray-600'><Link to="/">
+						<span onClick={handleLogout}>logout</span>
+						</Link> 
+				</li>
 
 			</ul>
 
@@ -69,12 +45,43 @@ export default function Navbar({ currentUser, handleLogout }) {
 					<li className='p-4 border-b border-gray-600'>Projects</li>
 					<li className='p-4 border-b border-gray-600'>Bugs</li>
 					<li className='p-4 border-b border-gray-600'>Profile</li>
+					<li className='p-4 ring-2 border-gray-600'><Link to="/">
+						<span onClick={handleLogout}>Logout</span>
+						</Link> 
+					</li>
 				</ul>
 			</div>
-			{/* <nav>
 
-				{currentUser ? loggedIn : loggedOut}
-			</nav> */}
+		</>
+	)
+
+	const loggedOut = (
+		<>
+		<div className='fixed left-[-100%]'>
+			{/* if the user is not logged in... */}
+			<Link to="/register">
+				register
+			</Link>
+
+			<Link to="/login">
+				login
+			</Link>
+
+		</div>
+		</>
+	)
+
+	return (
+		<div className='text-[#00E331] flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4'>
+			{/* user always sees this section */}
+			<Link to="/">
+
+				<h1 className='w-full text-3xl font-bold text-[#00E331]' id="logo">BugOut</h1>
+
+			</Link>
+
+			{currentUser ? loggedIn : loggedOut}
+
 
 		</div>
 	)

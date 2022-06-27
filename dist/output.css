@@ -574,9 +574,11 @@ video {
   margin-right: auto;
 }
 
+
 .mt-7 {
   margin-top: 1.75rem;
 }
+
 
 .block {
   display: block;
@@ -601,6 +603,7 @@ video {
 .w-full {
   width: 100%;
 }
+
 
 .w-\[30\%\] {
   width: 30%;
@@ -650,6 +653,7 @@ video {
   padding-right: 1rem;
 }
 
+
 .pt-px {
   padding-top: 1px;
 }
@@ -686,8 +690,8 @@ video {
 }
 
 body {
-  background-color: #000300;
-  color: white
+  background-color: #1A1A1A;
+  color: #00E331
 }
 
 @media (min-width: 768px) {

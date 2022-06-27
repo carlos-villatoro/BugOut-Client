@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 import Login from './components/pages/Login'
 import Profile from './components/pages/Profile'
 import Register from './components/pages/Register'
-import Welcome from './components/pages/Welcome'
+import Welcome from './components/pages/Dashboard'
 import Navbar from './components/Navbar'
 import jwt_decode from 'jwt-decode'
 
@@ -42,7 +42,7 @@ function App() {
   return (
     <Router>
       <header>
-        <Navbar 
+        <Navbar
           currentUser={currentUser}
           handleLogout={handleLogout}
         />
@@ -50,23 +50,23 @@ function App() {
 
       <div className="App">
         <Routes>
-          <Route 
+          <Route
             path="/"
             element={<Welcome />}
           />
 
-          <Route 
+          <Route
             path="/register"
             element={<Register currentUser={currentUser} setCurrentUser={setCurrentUser} />}
           />
 
-          <Route 
+          <Route
             path="/login"
             element={<Login currentUser={currentUser} setCurrentUser={setCurrentUser} />}
           />
 
           {/* conditionally render auth locked routes */}
-          <Route 
+          <Route
             path="/profile"
             element={currentUser ? <Profile handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} /> : <Navigate to="/login" />}
           />

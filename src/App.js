@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 import Login from './components/pages/Login'
 import Profile from './components/pages/Profile'
 import Register from './components/pages/Register'
-import Welcome from './components/pages/Dashboard'
+import Dashboard from './components/pages/Dashboard'
 import Navbar from './components/Navbar'
 import jwt_decode from 'jwt-decode'
 
@@ -16,16 +16,18 @@ function App() {
   // the currently logged in user will be stored up here in state
   const [currentUser, setCurrentUser] = useState(null)
 
-  // useEffect -- if the user navigates away form the page, we will log them back in
+  // useEffect -- if the user navigates away from the page, we will log them back in
   useEffect(() => {
     // check to see if token is in storage
     const token = localStorage.getItem('jwt')
     if (token) {
       // if so, we will decode it and set the user in app state
       setCurrentUser(jwt_decode(token))
+
     } else {
       setCurrentUser(null)
     }
+    console.log(currentUser)
   }, []) // happen only once
 
   // event handler to log the user out when needed
@@ -52,7 +54,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<Welcome />}
+            element={currentUser ? <Dashboard handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} /> : <Navigate to="/login" />}
           />
 
           <Route

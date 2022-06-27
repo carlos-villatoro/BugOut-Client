@@ -23,12 +23,11 @@ function App() {
     if (token) {
       // if so, we will decode it and set the user in app state
       setCurrentUser(jwt_decode(token))
-      
     } else {
       setCurrentUser(null)
     }
-    console.log(currentUser)
   }, []) // happen only once
+  console.log(currentUser)
 
   // event handler to log the user out when needed
   const handleLogout = () => {

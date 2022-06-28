@@ -3,8 +3,8 @@ import axios from 'axios'
 import ManagerProfile from '../partials/ManagerProfile'
 import MemberProfile from '../partials/MemberProfile'
 
-export default function Profile({ currentUser, handleLogout }) {
-	// state for the secret message (aka user privilaged data)
+export default function Profile({ currentUser, handleLogout, setCurrentUser, projectForm, setProjectForm, handleProjectSubmit }) {
+	// state for the secret message (aka user privileged data)
 	const [msg, setMsg] = useState('')
 
 	// useEffect for getting the user data and checking auth
@@ -41,13 +41,12 @@ export default function Profile({ currentUser, handleLogout }) {
 	})
 	return (
 		<div>
-			<h1>Hello, {currentUser.name}</h1>
-
-			<p>your email is {currentUser.email}</p>
-
-			<h2>Here is the secret message that is only available to users of User App:</h2>
-
-			<h3>{msg}</h3>
+			{currentUser.role === 'manager'
+			?
+			<ManagerProfile handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} projectForm={projectForm} setProjectForm={setProjectForm} handleProjectSubmit={handleProjectSubmit} />
+			:
+			<MemberProfile  handleLogout={handleLogout} currentUser={currentUser}/>
+			}
 		</div>
 	)
 }

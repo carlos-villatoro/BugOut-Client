@@ -21,7 +21,7 @@ export default function Bug() {
 
     const allBugs = bugs.map(bug => {
         return (
-            <div key={`bugId${bug.id}`}>
+            <div key={`bugId${bug._id}`} className='m-4'>
                 <h1>Bug Title: {bug.name}</h1>
                 <h2>Project:</h2>
                 <p>Notes: {bug.notes}</p>
@@ -38,6 +38,7 @@ export default function Bug() {
     // })
     return (
         <>
+        <h1 className="text-l">Bugs</h1>
         { allBugs }
         </>
     )

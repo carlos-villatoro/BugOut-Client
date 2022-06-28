@@ -21,7 +21,7 @@ export default function Project() {
 
 	console.log(project.users)
 	const user = users.map((user) =>{
-		return <h2>Manager: {user.name}</h2>
+		return <h2 key={user._id}>Manager: {user.name}</h2>
 	})
 	return (
 		<div>

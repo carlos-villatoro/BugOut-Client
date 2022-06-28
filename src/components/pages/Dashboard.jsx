@@ -47,10 +47,10 @@ export default function Dashboard() {
 
 	const searchedItem = searchedDb.map(item => {
 		return (
-			<li>{item.name}</li>
+			<Link to={`/projects/${item._id}`}>{item.name}</Link>
 		)
 	})
-	console.log(searchedItem)
+	console.log(projects)
 
 
 

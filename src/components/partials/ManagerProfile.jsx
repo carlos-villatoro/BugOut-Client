@@ -1,21 +1,24 @@
 import ProjectForm from "../ProjectForm"
 import { useState } from 'react'
 
-export default function ManagerProfile({handleLogout, currentUser, setCurrentUser, projectForm, setProjectForm,handleProjectSubmit}) {
+export default function ManagerProfile({handleLogout, currentUser, setCurrentUser, projectForm, setProjectForm,handleProjectSubmit, projects, setProjects, allUsers}) {
     const [showProjectForm, setShowProjectForm] = useState(false)
   return (
     <div>
-        ManagerProfile
-        {showProjectForm ?
-        <ProjectForm handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} projectForm={projectForm} setProjectForm={setProjectForm} handleProjectSubmit={handleProjectSubmit}/>
-    
-        :
-        'projects'
-        }
+
+        <p>ManagerProfile</p>
+
+        <div>
+            {showProjectForm ?
+            <ProjectForm handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} projectForm={projectForm} setProjectForm={setProjectForm} handleProjectSubmit={handleProjectSubmit} projects={projects} setProjects={setProjects} allUsers={allUsers}/>
+            :
+            'projects'
+            }
+        </div>
         <button 
             onClick={() => {setShowProjectForm(!showProjectForm)}}
             >
-                Add a Project
+                {showProjectForm ? 'Cancel' : 'Add a Project'}
             </button>
     </div>
   )

@@ -13,11 +13,17 @@ import Navbar from './components/Navbar'
 import jwt_decode from 'jwt-decode'
 import Project from './components/pages/Project'
 import Bugs from './components/pages/Bugs'
+import axios from 'axios'
 
 function App() {
   // the currently logged in user will be stored up here in state
   const [currentUser, setCurrentUser] = useState(null)
-
+  const [projects, setProjects] = useState([])
+  const [users, setUsers] = useState([])
+  const [bugs, setBugs] = useState([])
+  const [allUsers, setAllUsers] = useState([])
+  const [allMembers, setAllMembers] = useState([])
+  
   // useEffect -- if the user navigates away from the page, we will log them back in
   useEffect(() => {
     // check to see if token is in storage
@@ -28,9 +34,17 @@ function App() {
     } else {
       setCurrentUser(null)
     }
+    const findAllUsers = async () => {
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users`)
+      setAllUsers(response.data)
+      console.log(response.data)
+    }
+    findAllUsers()
   }, []) // happen only once
+  console.log(allUsers)
   // console.log(currentUser)
 
+  
   // event handler to log the user out when needed
   const handleLogout = () => {
     // check to see if a token exists in local storage
@@ -69,8 +83,8 @@ function App() {
           />
 
           <Route
-            path="/project"
-            element={<Project currentUser={currentUser} setCurrentUser={setCurrentUser} />}
+            path="/projects/:id"
+            element={<Project currentUser={currentUser} setCurrentUser={setCurrentUser} projects={projects} setProjects={setProjects}/>}
           />
 
           <Route
@@ -81,7 +95,7 @@ function App() {
           {/* conditionally render auth locked routes */}
           <Route
             path="/profile"
-            element={currentUser ? <Profile handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} /> : <Navigate to="/login" />}
+            element={currentUser ? <Profile handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} projects={projects} setProjects={setProjects} allUsers={allUsers}/> : <Navigate to="/login" />}
           />
 
         </Routes>

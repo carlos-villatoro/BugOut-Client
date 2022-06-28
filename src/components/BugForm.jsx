@@ -3,7 +3,9 @@ import {useState} from 'react'
 export default function BugForm() {
     const [bugForm, setBugForm] = useState({})
   return (
-    <form>
+    <form
+    className='flex items-center flex-col'
+    >
         <label htmlFor='name'>Bug Name:</label>
         <input
             type='text'

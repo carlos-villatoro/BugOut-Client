@@ -29,7 +29,7 @@ export default function Login({ currentUser, setCurrentUser }) {
 
 			// set the user in App's state to be the decoded token
 			setCurrentUser(decoded)
-			// console.log(currentUser)
+			// 
 		} catch (err) {
 			console.warn(err)
 			if (err.response) {

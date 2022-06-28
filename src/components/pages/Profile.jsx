@@ -3,7 +3,16 @@ import axios from 'axios'
 import ManagerProfile from '../partials/ManagerProfile'
 import MemberProfile from '../partials/MemberProfile'
 
-export default function Profile({ currentUser, handleLogout, setCurrentUser, projectForm, setProjectForm, handleProjectSubmit }) {
+export default function Profile({ currentUser, handleLogout, setCurrentUser, handleProjectSubmit, projects, setProjects, allUsers }) {
+	
+  const [projectForm, setProjectForm] = useState({
+    name:"",
+    language:"",
+    description:'',
+    notes: '',
+    priority:'',
+    users: []
+  })
 	// state for the secret message (aka user privileged data)
 	const [msg, setMsg] = useState('')
 
@@ -43,7 +52,7 @@ export default function Profile({ currentUser, handleLogout, setCurrentUser, pro
 		<div>
 			{currentUser.role === 'manager'
 			?
-			<ManagerProfile handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} projectForm={projectForm} setProjectForm={setProjectForm} handleProjectSubmit={handleProjectSubmit} />
+			<ManagerProfile handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} projectForm={projectForm} setProjectForm={setProjectForm} handleProjectSubmit={handleProjectSubmit} projects={projects} setProjects={setProjects} allUsers={allUsers}/>
 			:
 			<MemberProfile  handleLogout={handleLogout} currentUser={currentUser}/>
 			}

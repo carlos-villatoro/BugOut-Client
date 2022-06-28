@@ -20,9 +20,9 @@ export default function Dashboard() {
 	}, [])
 
 	const sortedProjects = [...projects].sort((a, b) => a.priority > b.priority ? 1 : -1)
-		.map((project, i) =>
+		.map((project) =>
 			//add a Link to specific project
-			<li key={`${project._id}`}>{project.name} {project.priority}</li>
+			<Link  to={`/projects/${project._id}`} key={`${project._id}`}>{project.name} {project.priority}</Link>
 		);
 
 
@@ -50,7 +50,7 @@ export default function Dashboard() {
 			<Link to={`/projects/${item._id}`}>{item.name}</Link>
 		)
 	})
-	console.log(projects)
+	// console.log(projects)
 
 
 

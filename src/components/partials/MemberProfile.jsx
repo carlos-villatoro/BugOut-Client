@@ -1,7 +1,10 @@
-import React from 'react'
+import BugForm from "../BugForm"
 
 export default function MemberProfile() {
   return (
-    <div>MemberProfile</div>
+    <div>
+        MemberProfile
+        <BugForm />
+    </div>
   )
 }

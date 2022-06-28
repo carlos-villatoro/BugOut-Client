@@ -27,13 +27,37 @@ export default function BugForm() {
             max='5'
             required
         />
-        <label htmlFor='status'>Bug Status:</label>
-        <input
-            type='text'
-            id='status'
-            value={bugForm.status}
-            required
-        />
+        <div>
+            <p>Bug Report Status:</p>
+            <input
+                type='radio'
+                id='notStarted'
+                name='status'
+                value={bugForm.status}
+            />
+            <label htmlFor='notStarted'>Not Started</label>
+            <input
+                type='radio'
+                id='WIP'
+                name='status'
+                value={bugForm.status}
+            />
+            <label htmlFor='WIP'>WIP</label>
+            <input
+                type='radio'
+                id='needsApproval'
+                name='status'
+                value={bugForm.status}
+            />
+            <label htmlFor='needsApproval'>Needs Approval</label>
+            <input
+                type='radio'
+                id='closed'
+                name='status'
+                value={bugForm.status}
+            />
+            <label htmlFor='closed'>Closed</label>
+        </div>
         <button type='submit'>Submit</button>
     </form>
   )

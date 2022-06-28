@@ -13,14 +13,14 @@ export default function Login({ currentUser, setCurrentUser }) {
 	const handleSubmit = async e => {
 		e.preventDefault()
 		try {
-			// post fortm data to the backend
+			// post form data to the backend
 			const reqBody = {
 				email,
 				password
 			}
 			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/login`, reqBody)
 
-			// save the token in localstorage
+			// save the token in localStorage
 			const { token } = response.data
 			localStorage.setItem('jwt', token)
 			console.log(token)

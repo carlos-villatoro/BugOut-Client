@@ -28,7 +28,7 @@ function App() {
       setCurrentUser(null)
     }
   }, []) // happen only once
-  console.log(currentUser)
+  // console.log(currentUser)
 
   // event handler to log the user out when needed
   const handleLogout = () => {

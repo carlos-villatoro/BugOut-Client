@@ -106,9 +106,7 @@ function App() {
           <Route
             path="/profile"
             element=
-            {currentUser 
-              ? 
-            <Profile 
+           { <Profile 
             handleLogout={handleLogout} 
             currentUser={currentUser} 
             setCurrentUser={setCurrentUser} 
@@ -116,9 +114,7 @@ function App() {
             setProjects={setProjects} 
             allUsers={allUsers} 
             showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} setProjectForm={setProjectForm} 
-            projectForm={projectForm}/> 
-            : <Navigate to="/login" />
-            }
+            projectForm={projectForm}/> }
           />
 
         </Routes>

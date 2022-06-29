@@ -11,6 +11,7 @@ export default function Profile({ currentUser, handleLogout, setCurrentUser, han
     description:'',
     notes: '',
     priority:'',
+	manager: '',
     users: []
   })
 	// state for the secret message (aka user privileged data)

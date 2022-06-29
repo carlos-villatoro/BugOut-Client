@@ -1,6 +1,5 @@
 import axios from 'axios'
-import { useInsertionEffect } from 'react'
-import { useState } from 'react'
+import { useState, useEffect} from 'react'
 
 export default function ProjectForm({currentUser, handleLogout, setCurrentUser, projectForm, setProjectForm, allUsers, projects, setProjects}) {
     const allMembers = allUsers.filter(user => {
@@ -10,13 +9,13 @@ export default function ProjectForm({currentUser, handleLogout, setCurrentUser, 
     const availableUsers = allMembers.map(member => {
         return(
             <p key={member._id}>
-            <input id={`${member._id}`} type='checkbox' value={member._id} checked={projectForm.users.includes(member._id)} onClick={e=> handleCheckbox(e)}/>
+            <input id={`${member._id}`} type='checkbox' value={member._id} checked={projectForm.users.includes(member._id)} onChange={e=> handleCheckbox(e)}/>
             <label htmlFor={`${member.id}`}>{member.name}</label>
             </p>
         )
        
     })
-    console.log(allMembers)
+    // console.log(allMembers)
     const handleCheckbox = e =>{
         // console.log(e)
         if(e.target.checked){
@@ -30,14 +29,20 @@ export default function ProjectForm({currentUser, handleLogout, setCurrentUser, 
         
     }
 
+    useEffect(()=>{
+        setProjectForm({...projectForm, manager:currentUser.id})
+    },[])
+
     // event handler for when a new project is created
   const handleProjectSubmit = async (e, projectForm, setProjectForm) => {
     e.preventDefault()
-    console.log(projectForm)
+    console.log(currentUser.id)
+    // console.log(projectForm)
     try {
         const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/projects`, projectForm)
-        console.log(response.data)
+        // console.log(response.data)
         setProjects([...projects, response.data])
+        
         // console.log(response)
         setProjectForm({
             name:"",
@@ -45,6 +50,7 @@ export default function ProjectForm({currentUser, handleLogout, setCurrentUser, 
             description:'',
             notes: '',
             priority:'',
+            manager: '',
             users: []
         })
         
@@ -102,6 +108,7 @@ export default function ProjectForm({currentUser, handleLogout, setCurrentUser, 
             placeholder='1'
             required
         />
+        <input hidden type='text' value={currentUser.id} id="manager"/>
         <label htmlFor='users'>Project Members:</label>
         {availableUsers}
         

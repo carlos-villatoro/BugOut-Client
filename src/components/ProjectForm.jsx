@@ -8,16 +8,36 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
         return user.role !== 'manager'
     })
 
+    const checkUsers = (member) => {
+        let checked = null
+        projectForm.users.forEach(user => {
+            console.log('🌈',member)
+            console.log('😵',user._id)
+            switch(user._id === member){
+                case false:
+                    checked = false
+                break;
+                case true: 
+                    checked = true
+                break;
+            }
+        })
+        console.log(checked, "😭")
+        return checked
+    }
     const availableUsers = allMembers.map(member => {
         console.log(projectForm.users)
         return(
-            <p key={member._id}>
-            <input id={`${member._id}`} type='checkbox' value={member._id} checked={projectForm.users.includes(member._id)} onChange={e=> handleCheckbox(e)}/> 
-            <label htmlFor={`${member.id}`}>{member.name}</label>
-            </p>
+            <div>
+                <p key={member._id}>
+                <input id={`${member._id}`} type='checkbox' value={member._id} checked={checkUsers(member._id)} onChange={e=> handleCheckbox(e)}/>
+                <label htmlFor={`${member.id}`}>{member.name}</label>
+                </p>
+                {console.log('☠️',checkUsers(member._id))}
+            </div>
         )
     //    ask weston how to get the checkboxes to work when users is an array of objects?
-
+            
     })
     const handleCheckbox = e =>{
         // console.log(e)

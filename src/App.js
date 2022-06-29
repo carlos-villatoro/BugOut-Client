@@ -105,7 +105,9 @@ function App() {
           {/* conditionally render auth locked routes */}
           <Route
             path="/profile"
-            element={currentUser ? 
+            element=
+            {currentUser 
+              ? 
             <Profile 
             handleLogout={handleLogout} 
             currentUser={currentUser} 
@@ -114,8 +116,9 @@ function App() {
             setProjects={setProjects} 
             allUsers={allUsers} 
             showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} setProjectForm={setProjectForm} 
-            projectForm={projectForm}/
-            > : <Navigate to="/login" />}
+            projectForm={projectForm}/> 
+            : <Navigate to="/login" />
+            }
           />
 
         </Routes>

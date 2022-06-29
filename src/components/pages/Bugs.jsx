@@ -9,7 +9,7 @@ export default function Bug() {
         const bugs = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/bugs`)
-                console.log(response.data)
+                // console.log(response.data)
                 setBugs(response.data)
                 // setUsers(response.data.users)
             } catch (error) {

@@ -1,38 +1,69 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom'
 
-export default function ProjectForm({currentUser, handleLogout, setCurrentUser}) {
-    const [projects, setProjects] = useState([])
-    const [projectForm, setProjectForm] = useState({
-        name:"",
-        language:"",
-        description:'',
-        notes: '',
-        priority:'',
-        users: ''
+export default function ProjectForm({currentUser, projectForm, setProjectForm, allUsers, projects, setProjects, showProjectForm, setShowProjectForm}) {
+    const navigate = useNavigate()
+    const allMembers = allUsers.filter(user => {
+        return user.role !== 'manager'
     })
+
+    const availableUsers = allMembers.map(member => {
+        return(
+            <p key={member._id}>
+            <input id={`${member._id}`} type='checkbox' value={member._id} checked={projectForm.users.includes(member._id)} onChange={e=> handleCheckbox(e)}/>
+            <label htmlFor={`${member.id}`}>{member.name}</label>
+            </p>
+        )
+       
+    })
+    // console.log(allMembers)
+    const handleCheckbox = e =>{
+        // console.log(e)
+        if(e.target.checked){
+            setProjectForm({...projectForm, users:[...projectForm.users, e.target.value]})
+        }else{
+            const projectUsers = projectForm.users.filter(user => {
+                return !user === e.target.value
+            })
+            setProjectForm({...projectForm, users:projectUsers})
+        }
+        
+    }
+
+    useEffect(()=>{
+        setProjectForm({...projectForm, manager:currentUser.id})
+    },[])
+
     // event handler for when a new project is created
   const handleProjectSubmit = async (e, projectForm, setProjectForm) => {
     e.preventDefault()
+    console.log(currentUser.id)
+    // console.log(projectForm)
     try {
         const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/projects`, projectForm)
+        // console.log(response.data)
         setProjects([...projects, response.data])
-        console.log(response)
+        
+        // console.log(response)
         setProjectForm({
             name:"",
             language:"",
             description:'',
             notes: '',
             priority:'',
-            users: ''
+            manager: '',
+            users: []
         })
-        
+        setShowProjectForm(false)
     } catch (error) {
         console.log(error)
     }
   }
   return (
-    <form onSubmit={e => handleProjectSubmit(e, projectForm, setProjectForm)}>
+    <form 
+    className='flex items-center flex-col'
+    onSubmit={e => handleProjectSubmit(e, projectForm, setProjectForm)}>
         <label htmlFor='name'>Project Name:</label>
         <input
             type='text'
@@ -79,17 +110,10 @@ export default function ProjectForm({currentUser, handleLogout, setCurrentUser})
             placeholder='1'
             required
         />
+        <input hidden type='text' value={currentUser.id} id="manager"/>
         <label htmlFor='users'>Project Members:</label>
-        <select
-            name='users'
-            id='users'
-            multiple
-        >
-            <option value={projectForm.users}>Member1</option>
-            <option value={projectForm.users}>Member2</option>
-            <option value={projectForm.users}>Member3</option>
-            <option value={projectForm.users}>Member4</option>
-        </select>
+        {availableUsers}
+        
         <button type='submit'>Submit</button>
     </form>
   )

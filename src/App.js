@@ -87,7 +87,7 @@ function App() {
             element={<Register currentUser={currentUser} setCurrentUser={setCurrentUser} />}
           />
 
-          <Route
+          <Route 
             path="/login"
             element={<Login currentUser={currentUser} setCurrentUser={setCurrentUser} />}
           />

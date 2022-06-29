@@ -14,6 +14,17 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 		setShowProjectForm(!showProjectForm)
 	}
 
+	const handleProjectEdit = async (e, projectForm) => {
+		e.preventDefault()
+		// console.log(projectForm)
+		try {
+			const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/projects/${id}`, projectForm)
+			setProject(response.data)
+			setShowProjectForm(false)
+		} catch (error) {
+			console.log(error)
+		}
+	}
 	useEffect(() =>  {
 		const project = async () => {
 			try {
@@ -27,8 +38,9 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 		}
 		project()
 	}, [id])
+	// to add users to projects in a way that doesn't break  the "includes" in the form can we do a split?
+	console.log(project)
 
-	console.log(currentUser)
 	// console.log(project.users)
 	const user = users.map((user) =>{
 		return <h2 key={user._id}>users associated: {user.name}</h2>
@@ -55,6 +67,7 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 			projects={projects}
 			setProjects={setProjects}
 			currentUser={currentUser}
+			handleSubmit={handleProjectEdit}
 			/>
 			:
 			<div>

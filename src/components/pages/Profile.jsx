@@ -3,7 +3,7 @@ import axios from 'axios'
 import ProjectForm from '../ProjectForm'
 import { Link } from 'react-router-dom'
 
-export default function Profile({ currentUser, handleLogout, handleProjectSubmit, projects, setProjects, allUsers, showProjectForm, setShowProjectForm, projectForm, setProjectForm }) {
+export default function Profile({ currentUser, handleLogout,  projects, setProjects, allUsers, showProjectForm, setShowProjectForm, projectForm, setProjectForm }) {
 	const [userProjects, setUserProjects] = useState([])
 	
 	const handleClick = () => {
@@ -18,7 +18,31 @@ export default function Profile({ currentUser, handleLogout, handleProjectSubmit
 			users: []
 		})
 	}
-	
+	// event handler for when a new project is created
+	const handleProjectSubmit = async (e, projectForm, setProjectForm) => {
+		e.preventDefault()
+		console.log(currentUser.id)
+		// console.log(projectForm)
+		try {
+			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/projects`, projectForm)
+			// console.log(response.data)
+			setProjects([...projects, response.data])
+			
+			// console.log(response)
+			setProjectForm({
+				name:"",
+				language:"",
+				description:'',
+				notes: '',
+				priority:'',
+				manager: '',
+				users: []
+			})
+			setShowProjectForm(false)
+		} catch (error) {
+			console.log(error)
+		}
+	  }
 	// state for the secret message (aka user privileged data)
 	const [msg, setMsg] = useState('')
 
@@ -68,7 +92,7 @@ export default function Profile({ currentUser, handleLogout, handleProjectSubmit
 
 				<div>
 				{showProjectForm ?
-					<ProjectForm currentUser={currentUser} projectForm={projectForm} setProjectForm={setProjectForm} handleProjectSubmit={handleProjectSubmit} projects={projects} setProjects={setProjects} allUsers={allUsers} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} />
+					<ProjectForm currentUser={currentUser} projectForm={projectForm} setProjectForm={setProjectForm} handleProjectSubmit={handleProjectSubmit} projects={projects} setProjects={setProjects} allUsers={allUsers} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} handleSubmit={handleProjectSubmit} />
 					:
 					sortedProjects
 				}

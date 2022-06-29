@@ -78,7 +78,8 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={currentUser ? <Dashboard handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} /> : <Navigate to="/login" />}
+            element={currentUser ? <Dashboard handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} /> 
+            : <Navigate to="/login" />}
           />
 
           <Route
@@ -104,7 +105,17 @@ function App() {
           {/* conditionally render auth locked routes */}
           <Route
             path="/profile"
-            element={currentUser ? <Profile handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} projects={projects} setProjects={setProjects} allUsers={allUsers} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} setProjectForm={setProjectForm} projectForm={projectForm}/> : <Navigate to="/login" />}
+            element={currentUser ? 
+            <Profile 
+            handleLogout={handleLogout} 
+            currentUser={currentUser} 
+            setCurrentUser={setCurrentUser} 
+            projects={projects} 
+            setProjects={setProjects} 
+            allUsers={allUsers} 
+            showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} setProjectForm={setProjectForm} 
+            projectForm={projectForm}/
+            > : <Navigate to="/login" />}
           />
 
         </Routes>

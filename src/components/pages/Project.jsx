@@ -79,7 +79,8 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 			{user}
 			</div>
 		}
-			{currentUser.role === 'manager' ?
+		
+			{currentUser && currentUser.role === 'manager' ?
 			<button onClick={() => handleClick()}>
 				{showProjectForm? 'Cancel' : "Edit Project"}
 			</button>

@@ -113,7 +113,7 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 	console.log(currentUser)
 	return (
 		<div>
-			{currentUser.role === 'manager'
+			{currentUser && currentUser.role === 'manager'
 				?
 				managerProfile
 				:

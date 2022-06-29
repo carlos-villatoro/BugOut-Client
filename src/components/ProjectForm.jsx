@@ -8,28 +8,49 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
         return user.role !== 'manager'
     })
 
-    const availableUsers = allMembers.map(member => {
+    const checkUsers = (member) => {
+        let checked = false
+        for(let i= 0; i < projectForm.users.length; i++){
+            if(projectForm.users[i]._id === member){
+                checked = true
+                break
+            }
+        }
+        console.log(checked, "😭")
+        return checked
+    }
+    const availableUsers = allMembers.map((member, i) => {
         console.log(projectForm.users)
         return(
-            <p key={member._id}>
-            <input id={`${member._id}`} type='checkbox' value={member._id} checked={projectForm.users.includes(member._id)} onChange={e=> handleCheckbox(e)}/> 
-            <label htmlFor={`${member.id}`}>{member.name}</label>
-            </p>
+            <div>
+                <p key={member._id}>
+                <input id={`${member._id}`} type='checkbox' value={member._id} checked={checkUsers(member._id)} onChange={e=> handleCheckbox(e, i)}/>
+                <label htmlFor={`${member.id}`}>{member.name}</label>
+                </p>
+                {console.log('☠️',checkUsers(member._id))}
+            </div>
         )
     //    ask weston how to get the checkboxes to work when users is an array of objects?
-
+            
     })
-    const handleCheckbox = e =>{
+    const userArray = projectForm.users.map(user => {
+        return user._id
+    })
+
+    console.log('🐍🐍',userArray)
+    const handleCheckbox = (e, i) =>{
         // console.log(e)
-        if(e.target.checked){
-            setProjectForm({...projectForm, users:[...projectForm.users, e.target.value]})
-        }else{
-            const projectUsers = projectForm.users.filter(user => {
-                return !user === e.target.value
-            })
-            setProjectForm({...projectForm, users:projectUsers})
+        if(e.target.checked && !checkUsers(e.target.value)){
+            setProjectForm({...projectForm, users:[...projectForm.users, allMembers.find(member => member._id === e.target.value)]})
+        }else if(!e.target.checked && checkUsers(e.target.value)) {
+            console.log(i, '🌗')
+            projectForm.users.splice(i, 1)
+            setProjectForm({...projectForm, users: projectForm.users})
+            // const projectUsers = projectForm.users.filter(user => {
+            //     return !user === e.target.value
+            // })
+            // setProjectForm({...projectForm, users:projectUsers})
         }
-        
     }
 
     useEffect(()=>{

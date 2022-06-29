@@ -1,7 +1,9 @@
 import axios from 'axios'
 import { useState, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom'
 
-export default function ProjectForm({currentUser, handleLogout, setCurrentUser, projectForm, setProjectForm, allUsers, projects, setProjects}) {
+export default function ProjectForm({currentUser, projectForm, setProjectForm, allUsers, projects, setProjects, showProjectForm, setShowProjectForm}) {
+    const navigate = useNavigate()
     const allMembers = allUsers.filter(user => {
         return user.role !== 'manager'
     })
@@ -53,7 +55,7 @@ export default function ProjectForm({currentUser, handleLogout, setCurrentUser, 
             manager: '',
             users: []
         })
-        
+        setShowProjectForm(false)
     } catch (error) {
         console.log(error)
     }

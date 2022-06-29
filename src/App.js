@@ -23,7 +23,16 @@ function App() {
   const [bugs, setBugs] = useState([])
   const [allUsers, setAllUsers] = useState([])
   const [allMembers, setAllMembers] = useState([])
-  
+  const [showProjectForm, setShowProjectForm] = useState(false)
+  const [projectForm, setProjectForm] = useState({
+		name: "",
+		language: "",
+		description: '',
+		notes: '',
+		priority: '',
+		manager: '',
+		users: []
+	})
   // useEffect -- if the user navigates away from the page, we will log them back in
   useEffect(() => {
     // check to see if token is in storage
@@ -84,7 +93,7 @@ function App() {
 
           <Route
             path="/projects/:id"
-            element={<Project currentUser={currentUser} setCurrentUser={setCurrentUser} projects={projects} setProjects={setProjects}/>}
+            element={<Project currentUser={currentUser} setCurrentUser={setCurrentUser} projects={projects} setProjects={setProjects} allUsers={allUsers} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} setProjectForm={setProjectForm} projectForm={projectForm} />}
           />
 
           <Route
@@ -95,7 +104,7 @@ function App() {
           {/* conditionally render auth locked routes */}
           <Route
             path="/profile"
-            element={currentUser ? <Profile handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} projects={projects} setProjects={setProjects} allUsers={allUsers}/> : <Navigate to="/login" />}
+            element={currentUser ? <Profile handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} projects={projects} setProjects={setProjects} allUsers={allUsers} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} setProjectForm={setProjectForm} projectForm={projectForm}/> : <Navigate to="/login" />}
           />
 
         </Routes>

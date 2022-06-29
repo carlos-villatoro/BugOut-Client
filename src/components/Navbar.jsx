@@ -17,8 +17,8 @@ export default function Navbar({ currentUser, handleLogout }) {
 			</Link> */}
 
 			<ul className='hidden md:flex'>
-			<li className='p-4 border-b border-gray-600'><Link to="/project">
-						Project</Link> </li>
+			{/* <li className='p-4 border-b border-gray-600'><Link to="/">
+						Projects</Link> </li> */}
 					<li className='p-4 border-b border-gray-600'><Link to="/bugs">
 						Bugs</Link> </li>
 					<li className='p-4 border-b border-gray-600'><Link to="/profile">
@@ -45,8 +45,8 @@ export default function Navbar({ currentUser, handleLogout }) {
 				</Link>
 
 				<ul className=' uppercase p-4'>
-					<li className='p-4 border-b border-gray-600'><Link to="/project">
-						Project</Link> </li>
+					{/* <li className='p-4 border-b border-gray-600'><Link to="/">
+						Projects</Link> </li> */}
 					<li className='p-4 border-b border-gray-600'><Link to="/bugs">
 						Bugs</Link> </li>
 					<li className='p-4 border-b border-gray-600'><Link to="/profile">

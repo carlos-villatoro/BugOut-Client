@@ -1,25 +1,30 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import ManagerProfile from '../partials/ManagerProfile'
-import MemberProfile from '../partials/MemberProfile'
+import ProjectForm from '../ProjectForm'
+import { Link } from 'react-router-dom'
 
-export default function Profile({ currentUser, handleLogout, setCurrentUser, handleProjectSubmit, projects, setProjects, allUsers }) {
+export default function Profile({ currentUser, handleLogout, handleProjectSubmit, projects, setProjects, allUsers, showProjectForm, setShowProjectForm, projectForm, setProjectForm }) {
+	const [userProjects, setUserProjects] = useState([])
 	
-  const [projectForm, setProjectForm] = useState({
-    name:"",
-    language:"",
-    description:'',
-    notes: '',
-    priority:'',
-	manager: '',
-    users: []
-  })
+	const handleClick = () => {
+		setShowProjectForm(!showProjectForm)
+		setProjectForm({
+			name: "",
+			language: "",
+			description: '',
+			notes: '',
+			priority: '',
+			manager: '',
+			users: []
+		})
+	}
+	
 	// state for the secret message (aka user privileged data)
 	const [msg, setMsg] = useState('')
 
 	// useEffect for getting the user data and checking auth
 	useEffect(() => {
-	const fetchData = async () => {
+		const fetchData = async () => {
 			try {
 				// get the token from local storage
 				const token = localStorage.getItem('jwt')
@@ -35,6 +40,8 @@ export default function Profile({ currentUser, handleLogout, setCurrentUser, han
 				// await axios.post(url, requestBody (form data), options)
 				// set the secret user message in state
 				setMsg(response.data.msg)
+				// console.log(response.data)
+				setUserProjects(response.data.projects)
 				// console.log(currentUser.role)
 			} catch (err) {
 				// if the error is a 401 -- that means that auth failed
@@ -48,14 +55,45 @@ export default function Profile({ currentUser, handleLogout, setCurrentUser, han
 			}
 		}
 		fetchData()
-	})
+	}, [])
+	const sortedProjects = [...userProjects].sort((a, b) => a.priority > b.priority ? 1 : -1)
+		.map((project) =>
+			//add a Link to specific project
+			<Link  to={`/projects/${project._id}`} key={`${project._id}`}>{project.name} {project.priority}</Link>
+		);
+	const managerProfile = (
+		<div>
+
+				<p>ManagerProfile</p>
+
+				<div>
+				{showProjectForm ?
+					<ProjectForm currentUser={currentUser} projectForm={projectForm} setProjectForm={setProjectForm} handleProjectSubmit={handleProjectSubmit} projects={projects} setProjects={setProjects} allUsers={allUsers} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} />
+					:
+					sortedProjects
+				}
+				</div>
+				<button
+					onClick={() => handleClick() }
+				>
+				{showProjectForm ? 'Cancel' : 'Add a Project'}
+				</button>
+		</div>
+	)
+	const memberProfile =(
+		<div>
+			<p> Member Profile</p>
+			<div> {sortedProjects}</div>
+		</div>
+	)
+	console.log(currentUser)
 	return (
 		<div>
 			{currentUser.role === 'manager'
-			?
-			<ManagerProfile handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} projectForm={projectForm} setProjectForm={setProjectForm} handleProjectSubmit={handleProjectSubmit} projects={projects} setProjects={setProjects} allUsers={allUsers}/>
-			:
-			<MemberProfile  handleLogout={handleLogout} currentUser={currentUser}/>
+				?
+				managerProfile
+				:
+				memberProfile
 			}
 		</div>
 	)

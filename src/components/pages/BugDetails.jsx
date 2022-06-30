@@ -32,7 +32,7 @@ export default function BugDetails({project, setProject, bug, handleClick, showB
       navigate(`/projects/${projectId}`)
     }
 
-    const handleBugEditSubmit = async (e, bugForm, id) => {
+    const handleBugEditSubmit = async (e, bugForm) => {
         e.preventDefault()
         try {
             const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/bugs/${bug._id}`, bugForm)

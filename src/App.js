@@ -105,7 +105,7 @@ function App() {
           <Route
             path="/projects/:id"
             element={authed ?
-              <Project currentUser={currentUser} setCurrentUser={setCurrentUser} projects={projects} setProjects={setProjects} allUsers={allUsers} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} setProjectForm={setProjectForm} projectForm={projectForm} /> :
+              <Project currentUser={currentUser} setCurrentUser={setCurrentUser} projects={projects} setProjects={setProjects} allUsers={allUsers} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} setProjectForm={setProjectForm} projectForm={projectForm} authed={authed} /> :
               <Navigate to='/login' />
             }
           />

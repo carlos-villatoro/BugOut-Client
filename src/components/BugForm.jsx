@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
 
-export default function BugForm({currentUser, bugForm, setBugForm, handleSubmit, showBugStatus}) {
+export default function BugForm({authed, bugForm, setBugForm, handleSubmit, showBugStatus}) {
     const {id}= useParams()
     console.log(bugForm)
 
@@ -64,7 +64,7 @@ export default function BugForm({currentUser, bugForm, setBugForm, handleSubmit,
                 onChange={(e) => handleStatusChange(e)}
             />
             <label htmlFor='needsApproval'>Needs Approval</label>
-            {currentUser.role === 'manager' ?
+            {authed.role === 'manager' ?
                 <div>
                     <input
                     type='radio'

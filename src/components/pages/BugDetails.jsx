@@ -5,8 +5,8 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
-export default function BugDetails({project, setProject, bug, handleClick, showBugForm, setShowBugForm, bugForm, setBugForm, setBug, currentUser, showBugStatus, setShowBugStatus, projectId }) {
-     const navigate = useNavigate()
+export default function BugDetails({project, setProject, bug, handleClick, showBugForm, setShowBugForm, bugForm, setBugForm, setBugs, currentUser, showBugStatus, setShowBugStatus, projectId, authed }) {
+    const navigate = useNavigate()
     const [showEditBugForm, setShowEditBugForm] = useState(false)
     // console.log(bug._id)
     const handleBugEditClick = () => {
@@ -14,7 +14,7 @@ export default function BugDetails({project, setProject, bug, handleClick, showB
         setBugForm(bug)
         setShowBugStatus(true)
     }
-
+// /62bdd7575638565949528bdc
     const findBug = (project) => {
         for(let i = 0; i < project.bugs.length; i++){
           if(project.bugs[i] === bug._id){
@@ -25,19 +25,29 @@ export default function BugDetails({project, setProject, bug, handleClick, showB
     const handleDelete = async() => {
       const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects/${projectId}`)
       const projectBugs = response.data.bugs
-      projectBugs.splice(findBug(project), 1)
+      const spliced = projectBugs.splice(findBug(project), 1)
+      console.log('spliccedecefedfecde',spliced)
+      setProject({...project, bugs: {projectBugs}})
+      console.log("projectBugs", projectBugs, "projectState", project)
+      const projectResponse = await axios.put(`${process.env.REACT_APP_SERVER_URL}/projects/${projectId}`, project)
+      console.log('PROJECTRESPONSEDOTDATA!!',projectResponse.data)
       await axios.delete(`${process.env.REACT_APP_SERVER_URL}/bugs/${bug._id}`)
-      // setProject({...project, bugs:[...project.bugs, projectBugs]})
-      console.log(response.data)
-      navigate(`/projects/${projectId}`)
+
+      const updatedBugs = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects/${projectId}/bugs`)
+      console.log(updatedBugs.data)
+      setBugs(updatedBugs.data)
     }
 
     const handleBugEditSubmit = async (e, bugForm) => {
         e.preventDefault()
         try {
             const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/bugs/${bug._id}`, bugForm)
-            setBug(response.data)
-            setShowBugForm(false)
+            const bugResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects/${projectId}/bugs`)
+            console.log(bugResponse.data)
+            setBugs(bugResponse.data)
+            setShowEditBugForm(false)
+            // navigate(`/projects/${projectId}`, {replace: true})
+            console.log('bug has been edited')
         } catch (error) {
             console.log(error)
         }
@@ -56,6 +66,7 @@ export default function BugDetails({project, setProject, bug, handleClick, showB
                 handleSubmit={handleBugEditSubmit}
                 currentUser={currentUser}
                 showBugStatus={showBugStatus}
+                authed={authed}
                 />
                 :
                 ""    

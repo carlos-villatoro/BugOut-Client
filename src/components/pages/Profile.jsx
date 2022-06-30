@@ -29,7 +29,7 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/projects`, projectForm)
 			// console.log(response.data)
 			setProjects([...projects, response.data])
-			
+			setUserProjects([...userProjects, response.data])
 			// console.log(response)
 			setProjectForm({
 				name:"",

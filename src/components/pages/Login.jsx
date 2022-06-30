@@ -49,7 +49,7 @@ export default function Login({ currentUser, setCurrentUser, setAuthed }) {
 	}
 
 	return (
-		<div className='flex justify-center flex-col grayBackground py-6 w-[25%] m-auto rounded-lg'>
+		<div className='flex justify-center flex-col grayBackground py-6  m-auto rounded-lg w-[300px] shrink-0'>
 			<h1 className='flex items-center flex-col text-2xl m-0 underline'>Login</h1>
 
 			<p>{msg}</p>
@@ -62,7 +62,7 @@ export default function Login({ currentUser, setCurrentUser, setAuthed }) {
 					placeholder='Enter Email'
 					onChange={e => setEmail(e.target.value)}
 					value={email}
-					className='"bg-white rounded-md py-1 pl-3 sm:text-sm my-4'
+					className='"bg-white rounded-md py-1 pl-3  my-4'
 				/>
 
 				{/* <label htmlFor='password'>Password:</label> */}
@@ -72,12 +72,12 @@ export default function Login({ currentUser, setCurrentUser, setAuthed }) {
 					placeholder='Enter Password'
 					onChange={e => setPassword(e.target.value)}
 					value={password}
-					className='"bg-white rounded-md py-1 pl-3 sm:text-sm '
+					className='bg-white rounded-md py-1 pl-3  '
 				/>
 
-				<button type="submit" className='rounded-lg buttons px-3 py-1 m-2 sm:text-sm'>Login</button>
+				<button type="submit" className='rounded-lg buttons px-3 py-1 m-2 '>Login</button>
 			</form>
-			<p className='flex items-center flex-col sm:text-sm '>Don't have an account? <Link to='/register'>Register One Now</Link></p>
+			<p className='flex items-center flex-col  '>Don't have an account? <Link to='/register'>Register One Now</Link></p>
 		</div>
 	)
 }

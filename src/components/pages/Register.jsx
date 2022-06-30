@@ -51,7 +51,7 @@ export default function Register({ currentUser, setCurrentUser, setAuthed }) {
 	}
 
 	return (
-		<div className=' flex justify-center flex-col grayBackground py-6 w-[25%] m-auto rounded-lg'>
+		<div className=' flex justify-center flex-col grayBackground py-6  m-auto rounded-lg w-[300px] shrink-0'>
 			<h1 className='flex items-center flex-col text-2xl m-0 underline'>Register</h1>
 
 			<p>{msg}</p>
@@ -64,7 +64,7 @@ export default function Register({ currentUser, setCurrentUser, setAuthed }) {
 					placeholder='Enter Username'
 					onChange={e => setName(e.target.value)}
 					value={name}
-					className='"bg-white rounded-md py-1 pl-3 sm:text-sm my-4'
+					className='"bg-white rounded-md py-1 pl-3  my-4'
 				/>
 
 				{/* <label htmlFor='email'>Email:</label> */}
@@ -74,7 +74,7 @@ export default function Register({ currentUser, setCurrentUser, setAuthed }) {
 					placeholder='Enter Email'
 					onChange={e => setEmail(e.target.value)}
 					value={email}
-					className='"bg-white rounded-md py-1 pl-3 sm:text-sm mb-4'
+					className='"bg-white rounded-md py-1 pl-3  mb-4'
 				/>
 
 				{/* <label htmlFor='password'>Password:</label> */}
@@ -84,11 +84,11 @@ export default function Register({ currentUser, setCurrentUser, setAuthed }) {
 					placeholder='Enter Password'
 					onChange={e => setPassword(e.target.value)}
 					value={password}
-					className='"bg-white rounded-md py-1 pl-3 sm:text-sm mb-4'
+					className='"bg-white rounded-md py-1 pl-3  mb-4'
 
 				/>
 				
-					<p className='flex items-center colum-row sm:text-sm '>Role:</p>
+					<p className='flex items-center colum-row  '>Role:</p>
 					<div className='mx-2'>
 						<input
 							type='radio'
@@ -108,9 +108,9 @@ export default function Register({ currentUser, setCurrentUser, setAuthed }) {
 					<label htmlFor='manager'>Manager</label>
 				</div>
 
-				<button type="submit" className='rounded-lg buttons px-3 py-1 m-2 sm:text-sm'>Register</button>
+				<button type="submit" className='rounded-lg buttons px-3 py-1 m-2 '>Register</button>
 			</form>
-			<p className='flex items-center flex-col sm:text-sm '>Already have an account? <Link to='/login'>Login Now</Link></p>
+			<p className='flex items-center flex-col  '>Already have an account? <Link to='/login'>Login Now</Link></p>
 		</div>
 	)
 }

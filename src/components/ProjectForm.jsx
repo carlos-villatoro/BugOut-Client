@@ -7,8 +7,8 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
     const allMembers = allUsers.filter(user => {
         return user.role !== 'manager'
     })
-    console.log("😢😢 All Users:",allUsers)
-    console.log("🤦🏼‍♀️🤦🏼‍♀️ All members:",allMembers)
+    // console.log("😢😢 All Users:",allUsers)
+    // console.log("🤦🏼‍♀️🤦🏼‍♀️ All members:",allMembers)
     const checkUsers = (member) => {
         let checked = false
         for(let i= 0; i < projectForm.users.length; i++){
@@ -17,7 +17,7 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
                 break
             }
         }
-        console.log(checked, "😭 checked status")
+        // console.log(checked, "😭 checked status")
         return checked
     }
     const availableUsers = allMembers.map((member, i) => {
@@ -28,7 +28,7 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
                 <input id={`${member._id}`} type='checkbox' value={member._id} checked={checkUsers(member._id)} onChange={e=> handleCheckbox(e, i)}/>
                 <label htmlFor={`${member.id}`}>{member.name}</label>
                 </p>
-                {console.log('☠️ the result of checked users',checkUsers(member._id))}
+                {/* {console.log('☠️ the result of checked users',checkUsers(member._id))} */}
             </div>
         )
     //    ask weston how to get the checkboxes to work when users is an array of objects?
@@ -38,13 +38,13 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
         return user._id
     })
 
-    console.log('🐍🐍',userArray)
+    // console.log('🐍🐍',userArray)
     const handleCheckbox = (e, i) =>{
         // console.log(e)
         if(e.target.checked && !checkUsers(e.target.value)){
             setProjectForm({...projectForm, users:[...projectForm.users, allMembers.find(member => member._id === e.target.value)]})
         }else if(!e.target.checked && checkUsers(e.target.value)) {
-            console.log(i, '🌗')
+            // console.log(i, '🌗')
             projectForm.users.splice(i, 1)
             setProjectForm({...projectForm, users: projectForm.users})
             // const projectUsers = projectForm.users.filter(user => {

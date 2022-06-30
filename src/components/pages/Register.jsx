@@ -50,48 +50,53 @@ export default function Register({ currentUser, setCurrentUser }) {
 	}
 
 	return (
-		<div className=' flex justify-center flex-col'>
-			<h1 className='flex items-center flex-col'>Register for an account:</h1>
+		<div className=' flex justify-center flex-col grayBackground py-6 w-[25%] m-auto rounded-lg'>
+			<h1 className='flex items-center flex-col text-2xl m-0 underline'>Register</h1>
 
 			<p>{msg}</p>
 
 			<form onSubmit={handleSubmit} className='flex items-center flex-col'>
-				<label htmlFor='name'>Name:</label>
+				{/* <label htmlFor='name'>Name:</label> */}
 				<input
 					type="text"
 					id="name"
-					placeholder='your username...'
+					placeholder='Enter Username'
 					onChange={e => setName(e.target.value)}
 					value={name}
+					className='"bg-white rounded-md py-1 pl-3 sm:text-sm my-4'
 				/>
 
-				<label htmlFor='email'>Email:</label>
+				{/* <label htmlFor='email'>Email:</label> */}
 				<input
 					type="email"
 					id="email"
-					placeholder='your email...'
+					placeholder='Enter Email'
 					onChange={e => setEmail(e.target.value)}
 					value={email}
+					className='"bg-white rounded-md py-1 pl-3 sm:text-sm mb-4'
 				/>
 
-				<label htmlFor='password'>Password:</label>
+				{/* <label htmlFor='password'>Password:</label> */}
 				<input
 					type="password"
 					id="password"
-					placeholder='password...'
+					placeholder='Enter Password'
 					onChange={e => setPassword(e.target.value)}
 					value={password}
+					className='"bg-white rounded-md py-1 pl-3 sm:text-sm mb-4'
+
 				/>
-				<div>
-					<p>Role:</p>
-					<input
-						type='radio'
-						id='member'
-						name='role'
-						onChange={e => setRole(e.target.value)}
-						value='member'
-					/>
-					<label htmlFor='member'>Member</label>
+				
+					<p className='flex items-center colum-row sm:text-sm '>Role:</p>
+					<div className='mx-2'>
+						<input
+							type='radio'
+							id='member'
+							name='role'
+							onChange={e => setRole(e.target.value)}
+							value='member'
+						/>
+					<label htmlFor='member' className='mr-3'>Member</label>
 					<input
 						type='radio'
 						id='manager'
@@ -102,9 +107,9 @@ export default function Register({ currentUser, setCurrentUser }) {
 					<label htmlFor='manager'>Manager</label>
 				</div>
 
-				<button type="submit">Register</button>
+				<button type="submit" className='rounded-lg buttons px-3 py-1 m-2 sm:text-sm'>Register</button>
 			</form>
-			<p className='flex items-center flex-col'>Already have an account? <Link to='/login'>Login Now</Link></p>
+			<p className='flex items-center flex-col sm:text-sm '>Already have an account? <Link to='/login'>Login Now</Link></p>
 		</div>
 	)
 }

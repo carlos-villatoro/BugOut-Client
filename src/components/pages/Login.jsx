@@ -46,17 +46,17 @@ export default function Login({ currentUser, setCurrentUser }) {
 	}
 
 	return (
-		<div className='flex justify-center flex-col login py-6  rounded-lg'>
-			<h1 className='flex items-center flex-col'>Login to Your Account:</h1>
+		<div className='flex justify-center flex-col grayBackground py-6 w-[25%] m-auto rounded-lg'>
+			<h1 className='flex items-center flex-col text-2xl m-0 underline'>Login</h1>
 
 			<p>{msg}</p>
 
-			<form onSubmit={handleSubmit} className='flex items-center flex-col '>
+			<form onSubmit={handleSubmit} className='flex items-center flex-col'>
 				{/* <label htmlFor='email'>Email:</label> */}
 				<input
 					type="email"
 					id="email"
-					placeholder='Enter email'
+					placeholder='Enter Email'
 					onChange={e => setEmail(e.target.value)}
 					value={email}
 					className='"bg-white rounded-md py-1 pl-3 sm:text-sm my-4'
@@ -72,9 +72,9 @@ export default function Login({ currentUser, setCurrentUser }) {
 					className='"bg-white rounded-md py-1 pl-3 sm:text-sm '
 				/>
 
-				<button type="submit">Login</button>
+				<button type="submit" className='rounded-lg buttons px-3 py-1 m-2 sm:text-sm'>Login</button>
 			</form>
-			<p className='flex items-center flex-col'>Don't have an account? <Link to='/register'>Register One Now</Link></p>
+			<p className='flex items-center flex-col sm:text-sm '>Don't have an account? <Link to='/register'>Register One Now</Link></p>
 		</div>
 	)
 }

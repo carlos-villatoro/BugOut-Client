@@ -82,7 +82,7 @@ export default function Navbar({ currentUser, handleLogout }) {
 			{/* user always sees this section */}
 			<Link to="/">
 
-				<h1 className='w-full text-3xl font-bold text-[#00E331]' id="logo">BugOut</h1>
+				<h1 className='w-full text-3xl font-bold text-[#00E331] bugOut' id="logo">BugOut</h1>
 
 			</Link>
 

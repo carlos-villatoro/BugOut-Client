@@ -9,12 +9,16 @@ body {
   font-family: 'Nanum Gothic Coding', monospace;
 }
 
-.login {
+.grayBackground {
  background-color: rgba(71, 71, 71);
 }
 
 .bugOut {
   color:#00E331;
   font-family: 'Orbitron', sans-serif;
+}
+
+.buttons{
+  background-color: rgb(26,26, 26);
 }
 

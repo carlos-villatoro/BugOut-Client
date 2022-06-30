@@ -5,7 +5,7 @@ import { Link, Navigate } from 'react-router-dom'
 
 
 
-export default function Profile({ currentUser, handleLogout,  projects, setProjects, allUsers, showProjectForm, setShowProjectForm, projectForm, setProjectForm }) {
+export default function Profile({ currentUser, handleLogout,  projects, setProjects, allUsers, showProjectForm, setShowProjectForm, projectForm, setProjectForm, authed }) {
 	const [userProjects, setUserProjects] = useState([])
 	
 	const handleClick = () => {
@@ -89,10 +89,10 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 		);
 	const managerProfile = (
 		<div>
-			<h1 className='items-center m-auto text-5xl'>{currentUser.role}</h1>
+			<h1 className='items-center m-auto text-5xl'>{authed.role}</h1>
 			<div className=' flex justify-center flex-col grayBackground py-6 w-[25%] m-auto rounded-lg'>
 				
-				<p>{currentUser.name}</p>
+				<p>{authed.name}</p>
 
 				<div>
 				{showProjectForm ?
@@ -111,20 +111,20 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 	)
 	const memberProfile =(
 		<div>
-			<p>{currentUser.name}</p>
-			<p>{currentUser.role}</p>
+			<p>{authed.name}</p>
+			<p>{authed.role}</p>
 			<div> {sortedProjects}</div>
 		</div>
 	)
 	// console.log(currentUser)
 
-	if (!currentUser) {
+	if (!authed) {
 		return <Navigate to="/login" />
 	}
 
 	return (
 		<div >
-			{currentUser && currentUser.role === 'manager'
+			{authed && authed.role === 'manager'
 				?
 				managerProfile
 				:

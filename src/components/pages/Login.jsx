@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
-import { Navigate, Link } from 'react-router-dom'
+import { Navigate, Link,  } from 'react-router-dom'
 
-export default function Login({ currentUser, setCurrentUser }) {
+export default function Login({ currentUser, setCurrentUser, setAuthed }) {
 	// state for the controlled form
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
@@ -29,6 +29,9 @@ export default function Login({ currentUser, setCurrentUser }) {
 
 			// set the user in App's state to be the decoded token
 			setCurrentUser(decoded)
+			setAuthed(decoded)
+
+			
 			// 
 		} catch (err) {
 			console.warn(err)
@@ -42,7 +45,7 @@ export default function Login({ currentUser, setCurrentUser }) {
 
 	// conditionally render a navigate component
 	if (currentUser) {
-		return <Navigate to="/" />
+		return <Navigate to="/" replace />
 	}
 
 	return (

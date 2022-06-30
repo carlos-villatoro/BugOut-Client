@@ -19,10 +19,10 @@ function App() {
   // the currently logged in user will be stored up here in state
   const [currentUser, setCurrentUser] = useState(null)
   const [projects, setProjects] = useState([])
-  const [users, setUsers] = useState([])
-  const [bugs, setBugs] = useState([])
+  // const [users, setUsers] = useState([])
+  // const [bugs, setBugs] = useState([])
   const [allUsers, setAllUsers] = useState([])
-  const [allMembers, setAllMembers] = useState([])
+  // const [allMembers, setAllMembers] = useState([])
   const [showProjectForm, setShowProjectForm] = useState(false)
   const [projectForm, setProjectForm] = useState({
     name: "",
@@ -33,18 +33,20 @@ function App() {
     manager: '',
     users: []
   })
+  const initializeState = () => !!localStorage.getItem("jwt");
 
-  const initializeState = () => localStorage.getItem('jwt')
-  const [token, setToken] = useState(initializeState)
+  const [authed, setAuthed] = useState(initializeState)
+
 
   // useEffect -- if the user navigates away from the page, we will log them back in
   useEffect(() => {
     // check to see if token is in storage
-    // const token = localStorage.getItem('jwt')
+    const token = localStorage.getItem('jwt')
+
     if (token) {
       // if so, we will decode it and set the user in app state
-      setToken(true)
       setCurrentUser(jwt_decode(token))
+      setAuthed(jwt_decode(token))
     } else {
       setCurrentUser(null)
     }
@@ -55,7 +57,6 @@ function App() {
     }
     findAllUsers()
     // console.log(currentUser)
-
   }, []) // happen only once
 
   // console.log(currentUser)
@@ -71,6 +72,8 @@ function App() {
       localStorage.removeItem('jwt')
       // set the user in the App state to be null
       setCurrentUser(null)
+      setAuthed(null)
+
     }
   }
 
@@ -86,7 +89,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={token ? <Dashboard handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} />
+            element={authed ? <Dashboard handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} />
               : <Navigate to="/login" />}
           />
           <Route
@@ -95,18 +98,21 @@ function App() {
           />
           <Route
             path="/login"
-            element={<Login currentUser={currentUser} setCurrentUser={setCurrentUser} />}
+            element={<Login currentUser={currentUser} setCurrentUser={setCurrentUser} setAuthed={setAuthed}
+            />}
           />
+
           <Route
             path="/projects/:id"
-            element={token ?
+            element={authed ?
               <Project currentUser={currentUser} setCurrentUser={setCurrentUser} projects={projects} setProjects={setProjects} allUsers={allUsers} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} setProjectForm={setProjectForm} projectForm={projectForm} /> :
               <Navigate to='/login' />
             }
           />
+
           <Route
             path="/bugs"
-            element={token ?
+            element={authed ?
               <Bugs currentUser={currentUser} setCurrentUser={setCurrentUser} /> :
               <Navigate to='/login' />
             }
@@ -115,7 +121,7 @@ function App() {
           <Route
             path="/profile"
             element=
-            {token ?
+            {authed ?
               <Profile
                 handleLogout={handleLogout}
                 currentUser={currentUser}
@@ -124,12 +130,15 @@ function App() {
                 setProjects={setProjects}
                 allUsers={allUsers}
                 showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} setProjectForm={setProjectForm}
-                projectForm={projectForm} /> :
-              <Navigate to='/login' />
+                projectForm={projectForm} 
+                authed={authed} 
+                /> :
+              <Navigate to='/' />
             }
           />
 
-          <Route path='*' element={<NotFound/>} />
+
+          <Route path='*' element={<NotFound />} />
 
         </Routes>
       </div>

@@ -12,7 +12,7 @@ export default function BugForm({currentUser, bugForm, setBugForm, handleSubmit,
   return (
     <form
     className='flex items-center flex-col'
-    onSubmit={ e=> handleSubmit(e, bugForm, setBugForm) }
+    onSubmit={ e=> handleSubmit(e, bugForm, setBugForm, id) }
     >
         <label htmlFor='name'>Bug Name:</label>
         <input

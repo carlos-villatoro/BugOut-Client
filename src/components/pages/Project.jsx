@@ -125,7 +125,8 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 			""
 			}
 			{project.bugs !== []? 
-				<Bugs id={id}
+				<Bugs 
+				id={id}
 				showBugStatus={showBugStatus}
 				setShowBugStatus={setShowBugStatus}
 				showBugForm={showBugForm}
@@ -133,6 +134,8 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 				currentUser={currentUser}
 				bugForm={bugForm}
 				setBugForm={setBugForm}
+				setProject={setProject}
+				project={project}
 				 />
 				:
 				""

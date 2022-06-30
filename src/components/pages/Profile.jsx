@@ -88,10 +88,10 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 			<Link  to={`/projects/${project._id}`} key={`${project._id}`}>{project.name} {project.priority}</Link>
 		);
 	const managerProfile = (
-		<div className=' flex justify-center flex-col grayBackground py-6 w-[25%] m-auto rounded-lg'>
-			<div>
+		<div>
+			<h1 className='items-center m-auto text-5xl'>{currentUser.role}</h1>
+			<div className=' flex justify-center flex-col grayBackground py-6 w-[25%] m-auto rounded-lg'>
 				
-				<h1 className='text-5xl'>{currentUser.role}</h1>
 				<p>{currentUser.name}</p>
 
 				<div>
@@ -106,7 +106,7 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 				>
 				{showProjectForm ? 'Cancel' : 'Add a Project'}
 				</button>
-				</div>
+			</div>
 		</div>
 	)
 	const memberProfile =(

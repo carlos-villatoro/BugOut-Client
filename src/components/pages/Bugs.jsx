@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import BugForm from "../BugForm"
 import BugDetails from "./BugDetails"
 
-export default function Bug({ showBugForm, setShowBugForm, showBugStatus, setShowBugStatus, currentUser, bugForm, setBugForm }) {
+export default function Bug({project, setProject, showBugForm, setShowBugForm, showBugStatus, setShowBugStatus, currentUser, bugForm, setBugForm }) {
     const [bugs, setBugs] = useState([])
     const [bug, setBug] = useState({})
     // const [users, setUsers] = useState([])
@@ -45,6 +45,10 @@ export default function Bug({ showBugForm, setShowBugForm, showBugStatus, setSho
                 setBug={setBug}
                 currentUser={currentUser}
                 showBugStatus={showBugStatus}
+                setShowBugStatus={setShowBugStatus}
+                projectId={id}
+                setProject={setProject}
+                project={project}
                 />
                
                 

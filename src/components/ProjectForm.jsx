@@ -1,14 +1,16 @@
-import axios from 'axios'
-import { useState, useEffect} from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
-export default function ProjectForm({currentUser, projectForm, setProjectForm, allUsers, projects, setProjects, showProjectForm, setShowProjectForm, handleSubmit}) {
-    const navigate = useNavigate()
+
+export default function ProjectForm({currentUser, projectForm, setProjectForm, allUsers, projects, setProjects, showProjectForm, setShowProjectForm, handleSubmit, authed}) {
+
+    const handleClick = () => {
+        setShowProjectForm(!showProjectForm)
+    }
+
     const allMembers = allUsers.filter(user => {
         return user.role !== 'manager'
     })
-    // console.log("😢😢 All Users:",allUsers)
-    // console.log("🤦🏼‍♀️🤦🏼‍♀️ All members:",allMembers)
+    
     const checkUsers = (member) => {
         let checked = false
         for(let i= 0; i < projectForm.users.length; i++){
@@ -17,28 +19,21 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
                 break
             }
         }
-        // console.log(checked, "😭 checked status")
         return checked
     }
     const availableUsers = allMembers.map((member, i) => {
         console.log(projectForm.users)
         return(
-            <div>
-                <p key={member._id}>
+            <div key={member._id}>
+                <p>
                 <input id={`${member._id}`} type='checkbox' value={member._id} checked={checkUsers(member._id)} onChange={e=> handleCheckbox(e, i)}/>
                 <label htmlFor={`${member.id}`}>{member.name}</label>
                 </p>
-                {/* {console.log('☠️ the result of checked users',checkUsers(member._id))} */}
             </div>
         )
-    //    ask weston how to get the checkboxes to work when users is an array of objects?
-            
+  
     })
-    const userArray = projectForm.users.map(user => {
-        return user._id
-    })
-
-    // console.log('🐍🐍',userArray)
+   
     const handleCheckbox = (e, i) =>{
         // console.log(e)
         if(e.target.checked && !checkUsers(e.target.value)){
@@ -47,10 +42,7 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
             // console.log(i, '🌗')
             projectForm.users.splice(i, 1)
             setProjectForm({...projectForm, users: projectForm.users})
-            // const projectUsers = projectForm.users.filter(user => {
-            //     return !user === e.target.value
-            // })
-            // setProjectForm({...projectForm, users:projectUsers})
+           
         }
     }
 
@@ -109,11 +101,13 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
             placeholder='1'
             required
         />
-        <input hidden type='text' value={currentUser.id} id="manager"/>
+        <input hidden type='text' value={currentUser.id} id="manager" readOnly/>
         <label htmlFor='users'>Project Members:</label>
         {availableUsers}
         
         <button type='submit'>Submit</button>
+
+        <button onClick={() => handleClick()}>Cancel</button>
     </form>
   )
 }

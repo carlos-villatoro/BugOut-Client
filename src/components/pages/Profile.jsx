@@ -104,7 +104,7 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 				<button
 					onClick={() => handleClick() }
 				>
-				{showProjectForm ? 'Cancel' : 'Add a Project'}
+				{showProjectForm ? '' : 'Add a Project'}
 				</button>
 			</div>
 		</div>

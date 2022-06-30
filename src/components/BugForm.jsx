@@ -7,6 +7,10 @@ export default function BugForm({currentUser, bugForm, setBugForm, handleSubmit,
     const {id}= useParams()
     console.log(bugForm)
 
+    const handleStatusChange = e => {
+        console.log("this is what the new status should be:",e.target.value)
+        setBugForm({...bugForm, status: e.target.value})
+    }
     
 
   return (
@@ -48,16 +52,16 @@ export default function BugForm({currentUser, bugForm, setBugForm, handleSubmit,
                 type='radio'
                 id='WIP'
                 name='status'
-                value={bugForm.status}
-                onChange={e => setBugForm({...bugForm, status: e.target.value})}
+                value="WIP"
+                onChange={(e) => handleStatusChange(e)}
             />
             <label htmlFor='WIP'>WIP</label>
             <input
                 type='radio'
                 id='needsApproval'
                 name='status'
-                value={bugForm.status}
-                onChange={e => setBugForm({...bugForm, status: e.target.value})}
+                value='Needs Approval'
+                onChange={(e) => handleStatusChange(e)}
             />
             <label htmlFor='needsApproval'>Needs Approval</label>
             {currentUser.role === 'manager' ?
@@ -66,8 +70,8 @@ export default function BugForm({currentUser, bugForm, setBugForm, handleSubmit,
                     type='radio'
                     id='closed'
                     name='status'
-                    value={bugForm.status}
-                    onChange={e => setBugForm({...bugForm, status: e.target.value})}
+                    value='Closed'
+                    onChange={(e) => handleStatusChange(e)}
                     />
                     <label htmlFor='closed'>Closed</label>
                 </div>

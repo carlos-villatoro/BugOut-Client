@@ -5,7 +5,7 @@ import ProjectForm from "../ProjectForm"
 import BugForm from "../BugForm"
 import Bugs from "./Bugs"
 
-export default function Project({showProjectForm, setShowProjectForm, setProjectForm, projectForm, currentUser, projects, setProjects, allUsers}) {
+export default function Project({showProjectForm, setShowProjectForm, setProjectForm, projectForm, currentUser, projects, setProjects, allUsers, authed}) {
 	const { id } = useParams()
 	const [project, setProject] = useState([])
 	const [users, setUsers] = useState([])
@@ -117,9 +117,9 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 			<p>Primary Language:{project.language}</p>
 			<p>Priority: {project.priority}</p>
 			{user}
-			{currentUser && currentUser.role === 'manager' ?
+			{authed && authed.role === 'manager' ?
 			<button onClick={() => handleClick()}>
-				{showProjectForm? 'Cancel' : "Edit Project"}
+				 Edit Project
 			</button>
 			:
 			""
@@ -152,7 +152,7 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 			<button 
 			onClick={() => handleBugCreateClick()}
 			>
-				{showBugForm? "Cancel" : "Create bug report"}
+				{showBugForm ? "Cancel" : "Create bug report"}
 			</button>
 			</div>
 		}

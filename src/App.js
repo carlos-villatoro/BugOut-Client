@@ -50,17 +50,17 @@ function App() {
     const findAllUsers = async () => {
       const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users`)
       setAllUsers(response.data)
-      console.log(response.data)
+      // console.log(response.data)
     }
     findAllUsers()
-    console.log(currentUser)
+    // console.log(currentUser)
     
   }, []) // happen only once
   
-  console.log(currentUser)
-  console.log(allUsers)
+  // console.log(currentUser)
+  // console.log(allUsers)
   
-  console.log(currentUser)
+  // console.log(currentUser)
   
   // event handler to log the user out when needed
   const handleLogout = () => {

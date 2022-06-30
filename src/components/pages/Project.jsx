@@ -3,19 +3,21 @@ import {useParams, Link} from "react-router-dom"
 import axios from "axios"
 import ProjectForm from "../ProjectForm"
 import BugForm from "../BugForm"
-import Bug from "./Bugs"
+import Bugs from "./Bugs"
 
 export default function Project({showProjectForm, setShowProjectForm, setProjectForm, projectForm, currentUser, projects, setProjects, allUsers}) {
 	const { id } = useParams()
 	const [project, setProject] = useState([])
 	const [users, setUsers] = useState([])
 	const [showBugForm, setShowBugForm] = useState(false)
+	const [showBugStatus, setShowBugStatus] = useState(false)
 	const [bugForm, setBugForm] = useState({
 		name: "",
 		notes: "",
 		priority: "",
 		status: "Not Started"
 	})
+	
 
 	const handleBugCreateClick = () => {
 		setShowBugForm(!showBugForm)
@@ -47,6 +49,7 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 	const handleClick = () => {
 		setProjectForm(project)
 		setShowProjectForm(!showProjectForm)
+		setShowBugStatus(false)
 	}
 
 	const handleProjectEdit = async (e, projectForm) => {
@@ -121,12 +124,28 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 			:
 			""
 			}
-				<Bug id={id} />
+			{project.bugs !== []? 
+				<Bugs 
+				id={id}
+				showBugStatus={showBugStatus}
+				setShowBugStatus={setShowBugStatus}
+				showBugForm={showBugForm}
+				setShowBugForm={setShowBugForm}
+				currentUser={currentUser}
+				bugForm={bugForm}
+				setBugForm={setBugForm}
+				setProject={setProject}
+				project={project}
+				 />
+				:
+				""
+			}
 				{showBugForm ? 
 			<BugForm 
 			bugForm={bugForm}
 			setBugForm={setBugForm}
 			handleSubmit={handleBugSubmit}
+			showBugStatus={showBugStatus}
 			/> 
 			: 
 			''}

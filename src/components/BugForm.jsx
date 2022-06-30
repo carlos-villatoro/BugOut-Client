@@ -3,16 +3,16 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
 
-export default function BugForm({currentUser, bugForm, setBugForm, handleSubmit}) {
+export default function BugForm({currentUser, bugForm, setBugForm, handleSubmit, showBugStatus}) {
     const {id}= useParams()
-    
+    console.log(bugForm)
 
     
 
   return (
     <form
     className='flex items-center flex-col'
-    onSubmit={ e=> handleSubmit(e, bugForm, setBugForm) }
+    onSubmit={ e=> handleSubmit(e, bugForm, setBugForm, id) }
     >
         <label htmlFor='name'>Bug Name:</label>
         <input
@@ -40,17 +40,10 @@ export default function BugForm({currentUser, bugForm, setBugForm, handleSubmit}
             max='5'
             required
         />
+        {showBugStatus ? 
         <div>
             <p>Bug Report Status:</p>
-            <input
-                type='radio'
-                id='notStarted'
-                name='status'
-                value={bugForm.status}
-                onChange={e => setBugForm({...bugForm, status: e.target.value})}
-                
-            />
-            <label htmlFor='notStarted'>Not Started</label>
+            
             <input
                 type='radio'
                 id='WIP'
@@ -67,15 +60,24 @@ export default function BugForm({currentUser, bugForm, setBugForm, handleSubmit}
                 onChange={e => setBugForm({...bugForm, status: e.target.value})}
             />
             <label htmlFor='needsApproval'>Needs Approval</label>
-            <input
-                type='radio'
-                id='closed'
-                name='status'
-                value={bugForm.status}
-                onChange={e => setBugForm({...bugForm, status: e.target.value})}
-            />
-            <label htmlFor='closed'>Closed</label>
+            {currentUser.role === 'manager' ?
+                <div>
+                    <input
+                    type='radio'
+                    id='closed'
+                    name='status'
+                    value={bugForm.status}
+                    onChange={e => setBugForm({...bugForm, status: e.target.value})}
+                    />
+                    <label htmlFor='closed'>Closed</label>
+                </div>
+            :
+            ''
+            }
         </div>
+        :
+        ""
+        }
         <button type='submit'>Submit</button>
     </form>
   )

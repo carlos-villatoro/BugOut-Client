@@ -89,9 +89,10 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 		);
 	const managerProfile = (
 		<div>
-
+			<h1 className='items-center m-auto text-5xl'>{currentUser.role}</h1>
+			<div className=' flex justify-center flex-col grayBackground py-6 w-[25%] m-auto rounded-lg'>
+				
 				<p>{currentUser.name}</p>
-				<p>{currentUser.role}</p>
 
 				<div>
 				{showProjectForm ?
@@ -105,6 +106,7 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 				>
 				{showProjectForm ? 'Cancel' : 'Add a Project'}
 				</button>
+			</div>
 		</div>
 	)
 	const memberProfile =(
@@ -114,14 +116,14 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 			<div> {sortedProjects}</div>
 		</div>
 	)
-	console.log(currentUser)
+	// console.log(currentUser)
 
 	if (!currentUser) {
 		return <Navigate to="/login" />
 	}
 
 	return (
-		<div>
+		<div >
 			{currentUser && currentUser.role === 'manager'
 				?
 				managerProfile

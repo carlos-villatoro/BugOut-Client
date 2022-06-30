@@ -78,7 +78,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div className='columns-1 items-center'>
       <header>
         <Navbar
           currentUser={currentUser}

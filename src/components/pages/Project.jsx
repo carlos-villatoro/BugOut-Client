@@ -11,6 +11,7 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 	const [project, setProject] = useState([])
 	const [users, setUsers] = useState([])
 	const [showBugForm, setShowBugForm] = useState(false)
+	const [editProjectForm, setEditProjectForm] = useState({})
 	const [showBugStatus, setShowBugStatus] = useState(false)
 	const [bugForm, setBugForm] = useState({
 		name: "",
@@ -41,7 +42,9 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 			const bugResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects/${id}/bugs`)
 			console.log("BUGRESPONSE", bugResponse)
 			setBugs(bugResponse.data)
-			
+			console.log(bugResponse.data)
+			setProject({...project, bugs: bugResponse.data})
+			console.log(project)
 			// console.log(response)
 			setBugForm({
 				name:"",
@@ -59,6 +62,7 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 		setProjectForm(project)
 		setShowProjectForm(!showProjectForm)
 		setShowBugStatus(false)
+		
 	}
 
 	const handleProjectEdit = async (e, projectForm) => {
@@ -68,12 +72,15 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 			const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/projects/${id}`, projectForm)
 			setShowProjectForm(false)
 			const projectResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects/${id}`)
-			console.log(projectResponse.data)
+			// console.log('response dot data for projects',projectResponse.data)
 			setProject(projectResponse.data)
+			setUsers(projectResponse.data.users)
+			console.log('users inside handleProjectEdit',users)
 		} catch (error) {
 			console.log(error)
 		}
 	}
+	console.log('users below handleProjectEdit',users)
 	useEffect(() =>  {
 		const project = async () => {
 			try {
@@ -81,87 +88,94 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 				// console.log(response.data)
 				setProject(response.data)
 				setUsers(response.data.users)
+				console.log('users inside useEffect',users)
 			} catch (error) {
 				console.log(error)
 			}
 		}
 		project()
 	}, [id])
-	
-	// console.log(project.users)
-	const user = users.map((user) =>{
+	console.log('users above users map',users)
+	console.log('project.users above users map',project.users)
+
+	const projectUsers = users.map((user) =>{
 		return <h2 key={user._id}>users associated: {user.name}</h2>
 	})
 
 
 	return (
 		<div>
+			{currentUser && users ? 
 			<div>
-				<Link to={'/'}>Back to Projects</Link>
-			</div>
-
-			{showProjectForm ? 
-			<ProjectForm 
-			projectForm={projectForm}
-			setProjectForm={setProjectForm}
-			allUsers={allUsers}
-			projects={projects}
-			setProjects={setProjects}
-			currentUser={currentUser}
-			handleSubmit={handleProjectEdit}
-			setShowProjectForm={setShowProjectForm}
-			/>
-			:
-			<div>
-			<h1>Project: {project.name}</h1>
-			<h2>Manager: {project.manager}</h2>
-			<p>{project.description}</p>
-			<p>Primary Language:{project.language}</p>
-			<p>Priority: {project.priority}</p>
-			{user}
-			{authed && authed.role === 'manager' ?
-			<button onClick={() => handleProjectEditClick()}>
-				 Edit Project
-			</button>
-			:
-			""
-			}
-			{project.bugs !== []? 
-				<Bugs 
-				id={id}
-				showBugStatus={showBugStatus}
-				setShowBugStatus={setShowBugStatus}
-				showBugForm={showBugForm}
-				setShowBugForm={setShowBugForm}
-				authed={authed}
-				bugForm={bugForm}
-				setBugForm={setBugForm}
-				setProject={setProject}
+				<div>
+					<Link to={'/'}>Back to Projects</Link>
+				</div>
+				{showProjectForm ?
+				<ProjectForm
+				projectForm={projectForm}
+				setProjectForm={setProjectForm}
+				allUsers={allUsers}
+				projects={projects}
+				setProjects={setProjects}
+				currentUser={currentUser}
+				handleSubmit={handleProjectEdit}
+				setShowProjectForm={setShowProjectForm}
 				project={project}
-				bugs={bugs}
-				setBugs={setBugs}
-				 />
+				/>
+				:
+				<div>
+				<h1>Project: {project.name}</h1>
+				<h2>Manager: {project.manager}</h2>
+				<p>{project.description}</p>
+				<p>Primary Language:{project.language}</p>
+				<p>Priority: {project.priority}</p>
+				{projectUsers}
+				{authed && authed.role === 'manager' ?
+				<button onClick={() => handleProjectEditClick()}>
+					 Edit Project
+				</button>
 				:
 				""
+				}
+				{project.bugs !== []?
+					<Bugs
+					id={id}
+					showBugStatus={showBugStatus}
+					setShowBugStatus={setShowBugStatus}
+					showBugForm={showBugForm}
+					setShowBugForm={setShowBugForm}
+					authed={authed}
+					bugForm={bugForm}
+					setBugForm={setBugForm}
+					setProject={setProject}
+					project={project}
+					bugs={bugs}
+					setBugs={setBugs}
+					 />
+					:
+					""
+				}
+					{showBugForm ?
+				<BugForm
+				bugForm={bugForm}
+				setBugForm={setBugForm}
+				handleSubmit={handleBugSubmit}
+				showBugStatus={showBugStatus}
+				authed={authed}
+				/>
+				:
+				''}
+				<button
+				onClick={() => handleBugCreateClick()}
+				>
+					{showBugForm ? "Cancel" : "Create bug report"}
+				</button>
+				</div>
 			}
-				{showBugForm ? 
-			<BugForm 
-			bugForm={bugForm}
-			setBugForm={setBugForm}
-			handleSubmit={handleBugSubmit}
-			showBugStatus={showBugStatus}
-			authed={authed}
-			/> 
-			: 
-			''}
-			<button 
-			onClick={() => handleBugCreateClick()}
-			>
-				{showBugForm ? "Cancel" : "Create bug report"}
-			</button>
 			</div>
+			:
+			<div>Loading</div>
 		}
-
 		</div>
 	)
 }

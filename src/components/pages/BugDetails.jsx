@@ -26,11 +26,15 @@ export default function BugDetails({project, setProject, bug, handleClick, showB
       const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects/${projectId}`)
       const projectBugs = response.data.bugs
       const spliced = projectBugs.splice(findBug(project), 1)
-      console.log('spliccedecefedfecde',spliced)
-      setProject({...project, bugs: {projectBugs}})
+      console.log('spliced*****',spliced)
+      console.log('XXXXXXXXXXXX',projectBugs)
+
+      setProject({...project, bugs: projectBugs})
       console.log("projectBugs", projectBugs, "projectState", project)
+
       const projectResponse = await axios.put(`${process.env.REACT_APP_SERVER_URL}/projects/${projectId}`, project)
-      console.log('PROJECTRESPONSEDOTDATA!!',projectResponse.data)
+      console.log('PROJECT RESPONSE DOT DATA!!',projectResponse.data)
+
       await axios.delete(`${process.env.REACT_APP_SERVER_URL}/bugs/${bug._id}`)
 
       const updatedBugs = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects/${projectId}/bugs`)

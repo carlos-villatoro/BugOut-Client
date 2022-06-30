@@ -19,8 +19,8 @@ export default function Navbar({ currentUser, handleLogout }) {
 			<ul className='hidden md:flex'>
 			{/* <li className='p-4 border-b border-gray-600'><Link to="/">
 						Projects</Link> </li> */}
-					<li className='p-4 border-b border-gray-600'><Link to="/bugs">
-						Bugs</Link> </li>
+					<li className='p-4 border-b border-gray-600'><Link to="/">
+						Projects</Link> </li>
 					<li className='p-4 border-b border-gray-600'><Link to="/profile">
 						Profile</Link> </li>
 					<li className='p-4 ring-2 border-gray-600'><Link to="/">
@@ -40,15 +40,15 @@ export default function Navbar({ currentUser, handleLogout }) {
 					'fixed left-0 top-0 w-[30%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500 md:hidden' :
 					'fixed left-[-100%] md:hidden'
 			}>
-				<Link to="/">
+				
 					<h1 className='w-full text-3xl font-bold  m-4 mt-7 pt-px bugOut'>BugOut</h1>
-				</Link>
+				
 
 				<ul className=' uppercase p-4'>
 					{/* <li className='p-4 border-b border-gray-600'><Link to="/">
 						Projects</Link> </li> */}
-					<li className='p-4 border-b border-gray-600'><Link to="/bugs">
-						Bugs</Link> </li>
+					<li className='p-4 border-b border-gray-600'><Link to="/">
+						Projects</Link> </li>
 					<li className='p-4 border-b border-gray-600'><Link to="/profile">
 						Profile</Link> </li>
 					<li className='p-4 ring-2 border-gray-600'><Link to="/">
@@ -80,15 +80,8 @@ export default function Navbar({ currentUser, handleLogout }) {
 	return (
 		<div className='text-[#00E331] flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4'>
 			{/* user always sees this section */}
-			<Link to="/">
-
 				<h1 className='w-full text-3xl font-bold text-[#00E331] bugOut' id="logo">BugOut</h1>
-
-			</Link>
-
 			{currentUser ? loggedIn : loggedOut}
-
-
 		</div>
 	)
 }

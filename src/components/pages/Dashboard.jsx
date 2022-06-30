@@ -2,10 +2,10 @@
 import axios from "axios"
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
-import {BsFolderSymlinkFill} from 'react-icons/bs'
+import { BsFolderSymlinkFill } from 'react-icons/bs'
 
-export default function Dashboard({projects, setProjects}) {
-	
+export default function Dashboard({ projects, setProjects }) {
+
 	const [search, setSearch] = useState('')
 
 	useEffect(() => {
@@ -24,19 +24,19 @@ export default function Dashboard({projects, setProjects}) {
 		.map((project) =>
 			//add a Link to specific project
 
-			<Link to={`/projects/${project._id}`} key={`${project._id}`}>
-				<div className='flex flex-col border text-left rounded-2xl py-12 px-8 max-w-[70%]'>
+			<div key={`${project._id}`}className='  border text-left rounded-2xl py-12 px-8 md:max-w-[250px] max-w-[250px] '>
+				<Link to={`/projects/${project._id}`} >
 					<div>
 						<div className='bg-[#474747] inline-flex p-2 rounded-full'>
-							<BsFolderSymlinkFill size={40}/>
+							<BsFolderSymlinkFill size={40} />
 						</div>
 						<h3 className='text-xl font-bold py-4 uppercase'>{project.name}</h3>
 						<p>
 							Priority: {project.priority}
 						</p>
 					</div>
-				</div>
-			</Link>
+				</Link>
+			</div>
 
 		);
 
@@ -62,16 +62,16 @@ export default function Dashboard({projects, setProjects}) {
 
 	const searchedItem = searchedDb.map(item => {
 		return (
-			<Link to={`/projects/${item._id}`}>
-			<div className='flex flex-col border text-left rounded-2xl py-12 px-8 '>
-				<div>
-					<div className='bg-[#474747] inline-flex p-2 rounded-full'>
-						<BsFolderSymlinkFill size={40}/>
+			<div key={`${item._id}`} className='flex flex-col border text-left rounded-2xl py-12 px-8 '>
+				<Link to={`/projects/${item._id}`}>
+					<div>
+						<div className='bg-[#474747] inline-flex p-2 rounded-full'>
+							<BsFolderSymlinkFill size={40} />
+						</div>
+						<h3 className='text-xl font-bold py-4 uppercase'>{item.name}</h3>
 					</div>
-					<h3 className='text-xl font-bold py-4 uppercase'>{item.name}</h3>
-				</div>
+				</Link>
 			</div>
-		</Link>
 		)
 	})
 	// console.log(projects)
@@ -79,7 +79,7 @@ export default function Dashboard({projects, setProjects}) {
 
 
 	return (
-		<div>
+		<div className="justify-center md:max-w-[1116px] mx-auto " >
 			hello from Dashboard
 			<form onSubmit={handleSubmit}>
 				<input
@@ -92,7 +92,7 @@ export default function Dashboard({projects, setProjects}) {
 			{searchedDb.length === 0 ? (
 				<div>
 					<h3>All Projects</h3>
-					<div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-3 md:max-w-2 items-center">
+					<div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:max-w-2 justify-center ">
 						{sortedProjects}
 					</div>
 				</div>

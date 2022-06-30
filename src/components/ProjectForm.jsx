@@ -1,10 +1,11 @@
 import { useEffect } from 'react'
 
 
-export default function ProjectForm({currentUser, projectForm, setProjectForm, allUsers, projects, setProjects, showProjectForm, setShowProjectForm, handleSubmit, authed}) {
+export default function ProjectForm({currentUser, projectForm, setProjectForm, allUsers, projects, setProjects, showProjectForm, setShowProjectForm, handleSubmit, project, authed}) {
 
-    const handleClick = () => {
+    const handleCancelClick = () => {
         setShowProjectForm(!showProjectForm)
+        setProjectForm(project)
     }
 
 
@@ -22,13 +23,14 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
         }
         return checked
     }
+
     const availableUsers = allMembers.map((member, i) => {
-        console.log(projectForm.users)
+        console.log('XXXXXX',checkUsers(member._id))
         return(
             <div key={member._id}>
                 <p>
                 <input id={`${member._id}`} type='checkbox' value={member._id} checked={checkUsers(member._id)} onChange={e=> handleCheckbox(e, i)}/>
-                <label htmlFor={`${member.id}`}>{member.name}</label>
+                <label htmlFor={`${member._id}`}>{member.name}</label>
                 </p>
             </div>
         )
@@ -114,7 +116,7 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
         
         <button type='submit'>Submit</button>
 
-        <button onClick={() => handleClick()}>Cancel</button>
+        <button onClick={() => handleCancelClick()}>Cancel</button>
     </form>
   )
 }

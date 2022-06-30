@@ -114,10 +114,6 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 			<p>Primary Language:{project.language}</p>
 			<p>Priority: {project.priority}</p>
 			{user}
-				<Bug id={id} />
-			</div>
-		}
-		
 			{currentUser && currentUser.role === 'manager' ?
 			<button onClick={() => handleClick()}>
 				{showProjectForm? 'Cancel' : "Edit Project"}
@@ -125,7 +121,8 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 			:
 			""
 			}
-			{showBugForm ? 
+				<Bug id={id} />
+				{showBugForm ? 
 			<BugForm 
 			bugForm={bugForm}
 			setBugForm={setBugForm}
@@ -138,6 +135,11 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 			>
 				{showBugForm? "Cancel" : "Create bug report"}
 			</button>
+			</div>
+		}
+		
+			
+			
 			
 		</div>
 	)

@@ -46,7 +46,7 @@ export default function Login({ currentUser, setCurrentUser }) {
 	}
 
 	return (
-		<div className='flex justify-center flex-col login mx-0 py-6  rounded-lg'>
+		<div className='flex justify-center flex-col login py-6  rounded-lg'>
 			<h1 className='flex items-center flex-col'>Login to Your Account:</h1>
 
 			<p>{msg}</p>

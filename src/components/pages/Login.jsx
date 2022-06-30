@@ -46,28 +46,30 @@ export default function Login({ currentUser, setCurrentUser }) {
 	}
 
 	return (
-		<div className='flex justify-center flex-col'>
+		<div className='flex justify-center flex-col login mx-0 py-6  rounded-lg'>
 			<h1 className='flex items-center flex-col'>Login to Your Account:</h1>
 
 			<p>{msg}</p>
 
-			<form onSubmit={handleSubmit} className='flex items-center flex-col'>
-				<label htmlFor='email'>Email:</label>
+			<form onSubmit={handleSubmit} className='flex items-center flex-col '>
+				{/* <label htmlFor='email'>Email:</label> */}
 				<input
 					type="email"
 					id="email"
-					placeholder='your email...'
+					placeholder='Enter email'
 					onChange={e => setEmail(e.target.value)}
 					value={email}
+					className='"bg-white rounded-md py-1 pl-3 sm:text-sm my-4'
 				/>
 
-				<label htmlFor='password'>Password:</label>
+				{/* <label htmlFor='password'>Password:</label> */}
 				<input
 					type="password"
 					id="password"
-					placeholder='password...'
+					placeholder='Enter Password'
 					onChange={e => setPassword(e.target.value)}
 					value={password}
+					className='"bg-white rounded-md py-1 pl-3 sm:text-sm '
 				/>
 
 				<button type="submit">Login</button>

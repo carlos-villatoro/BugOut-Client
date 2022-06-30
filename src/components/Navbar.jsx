@@ -41,7 +41,7 @@ export default function Navbar({ currentUser, handleLogout }) {
 					'fixed left-[-100%] md:hidden'
 			}>
 				<Link to="/">
-					<h1 className='w-full text-3xl font-bold text-[#00E331] m-4 mt-7 pt-px'>BugOut</h1>
+					<h1 className='w-full text-3xl font-bold  m-4 mt-7 pt-px bugOut'>BugOut</h1>
 				</Link>
 
 				<ul className=' uppercase p-4'>

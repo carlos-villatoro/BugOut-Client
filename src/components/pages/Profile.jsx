@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import ProjectForm from '../ProjectForm'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+
+
 
 export default function Profile({ currentUser, handleLogout,  projects, setProjects, allUsers, showProjectForm, setShowProjectForm, projectForm, setProjectForm }) {
 	const [userProjects, setUserProjects] = useState([])
@@ -88,7 +90,8 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 	const managerProfile = (
 		<div>
 
-				<p>ManagerProfile</p>
+				<p>{currentUser.name}</p>
+				<p>{currentUser.role}</p>
 
 				<div>
 				{showProjectForm ?
@@ -106,11 +109,17 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 	)
 	const memberProfile =(
 		<div>
-			<p> Member Profile</p>
+			<p>{currentUser.name}</p>
+			<p>{currentUser.role}</p>
 			<div> {sortedProjects}</div>
 		</div>
 	)
 	console.log(currentUser)
+
+	if (!currentUser) {
+		return <Navigate to="/login" />
+	}
+
 	return (
 		<div>
 			{currentUser && currentUser.role === 'manager'

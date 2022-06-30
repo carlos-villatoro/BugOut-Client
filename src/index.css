@@ -5,5 +5,16 @@
 
 body {
   background-color: #1A1A1A;
-  color: #00E331
+  color: #00E331;
+  font-family: 'Nanum Gothic Coding', monospace;
 }
+
+.login {
+ background-color: rgba(71, 71, 71);
+}
+
+.bugOut {
+  color:#00E331;
+  font-family: 'Orbitron', sans-serif;
+}
+

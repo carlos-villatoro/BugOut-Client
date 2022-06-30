@@ -89,7 +89,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={authed ? <Dashboard handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} />
+            element={authed ? <Dashboard handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} projects={projects} setProjects={setProjects} />
               : <Navigate to="/login" />}
           />
           <Route

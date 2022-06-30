@@ -7,6 +7,7 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
         setShowProjectForm(!showProjectForm)
     }
 
+
     const allMembers = allUsers.filter(user => {
         return user.role !== 'manager'
     })
@@ -34,6 +35,12 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
   
     })
    
+    const userArray = projectForm.users.map(user => {
+        return user._id
+    })
+
+    console.log('🐍🐍',userArray)
+
     const handleCheckbox = (e, i) =>{
         // console.log(e)
         if(e.target.checked && !checkUsers(e.target.value)){

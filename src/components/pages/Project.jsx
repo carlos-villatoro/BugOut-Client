@@ -7,6 +7,7 @@ import Bugs from "./Bugs"
 
 export default function Project({showProjectForm, setShowProjectForm, setProjectForm, projectForm, currentUser, projects, setProjects, allUsers, authed}) {
 	const { id } = useParams()
+	const [bugs, setBugs] = useState([])
 	const [project, setProject] = useState([])
 	const [users, setUsers] = useState([])
 	const [showBugForm, setShowBugForm] = useState(false)
@@ -21,6 +22,12 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 
 	const handleBugCreateClick = () => {
 		setShowBugForm(!showBugForm)
+		setBugForm({
+			name: "",
+			notes: "",
+			priority: "",
+			status: "Not Started"
+		})
 	}
 
 	// event handler for when a new project is created
@@ -30,8 +37,10 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 		// console.log(bugForm)
 		try {
 			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/projects/${id}/bugs`, bugForm)
-			// console.log(response.data)
-			// setBug([...projects, response.data])
+			// console.log("BUGSUBMITRESPONSEDATA",response.data)
+			const bugResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects/${id}/bugs`)
+			console.log("BUGRESPONSE", bugResponse)
+			setBugs(bugResponse.data)
 			
 			// console.log(response)
 			setBugForm({
@@ -46,7 +55,7 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 		}
 	  }
 
-	const handleClick = () => {
+	const handleProjectEditClick = () => {
 		setProjectForm(project)
 		setShowProjectForm(!showProjectForm)
 		setShowBugStatus(false)
@@ -57,8 +66,10 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 		// console.log(projectForm)
 		try {
 			const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/projects/${id}`, projectForm)
-			setProject(response.data)
 			setShowProjectForm(false)
+			const projectResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects/${id}`)
+			console.log(projectResponse.data)
+			setProject(projectResponse.data)
 		} catch (error) {
 			console.log(error)
 		}
@@ -76,8 +87,6 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 		}
 		project()
 	}, [id])
-	// to add users to projects in a way that doesn't break  the "includes" in the form can we do a split?
-	// console.log(project)
 	
 	// console.log(project.users)
 	const user = users.map((user) =>{
@@ -85,20 +94,12 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 	})
 
 
-	
-	// const manager = users.filter(user => {
-	// 	return !user.role === 'manager'
-	// })
-	// setPm(manager)
-
 	return (
 		<div>
 			<div>
 				<Link to={'/'}>Back to Projects</Link>
 			</div>
 
-
-			
 			{showProjectForm ? 
 			<ProjectForm 
 			projectForm={projectForm}
@@ -108,6 +109,7 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 			setProjects={setProjects}
 			currentUser={currentUser}
 			handleSubmit={handleProjectEdit}
+			setShowProjectForm={setShowProjectForm}
 			/>
 			:
 			<div>
@@ -118,7 +120,7 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 			<p>Priority: {project.priority}</p>
 			{user}
 			{authed && authed.role === 'manager' ?
-			<button onClick={() => handleClick()}>
+			<button onClick={() => handleProjectEditClick()}>
 				 Edit Project
 			</button>
 			:
@@ -131,11 +133,13 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 				setShowBugStatus={setShowBugStatus}
 				showBugForm={showBugForm}
 				setShowBugForm={setShowBugForm}
-				currentUser={currentUser}
+				authed={authed}
 				bugForm={bugForm}
 				setBugForm={setBugForm}
 				setProject={setProject}
 				project={project}
+				bugs={bugs}
+				setBugs={setBugs}
 				 />
 				:
 				""
@@ -146,6 +150,7 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 			setBugForm={setBugForm}
 			handleSubmit={handleBugSubmit}
 			showBugStatus={showBugStatus}
+			authed={authed}
 			/> 
 			: 
 			''}
@@ -156,10 +161,7 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 			</button>
 			</div>
 		}
-		
-			
-			
-			
+
 		</div>
 	)
 }

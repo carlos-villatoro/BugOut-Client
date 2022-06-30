@@ -3,7 +3,7 @@ import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { Navigate, Link } from 'react-router-dom'
 
-export default function Register({ currentUser, setCurrentUser }) {
+export default function Register({ currentUser, setCurrentUser, setAuthed }) {
 	// state for the controlled form
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
@@ -33,6 +33,7 @@ export default function Register({ currentUser, setCurrentUser }) {
 
 			// // set the user in App's state to be the decoded token
 			setCurrentUser(decoded)
+			setAuthed(decoded)
 
 		} catch (err) {
 			console.warn(err)

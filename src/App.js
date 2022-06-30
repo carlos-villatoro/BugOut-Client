@@ -94,7 +94,7 @@ function App() {
           />
           <Route
             path="/register"
-            element={<Register currentUser={currentUser} setCurrentUser={setCurrentUser} />}
+            element={<Register currentUser={currentUser} setCurrentUser={setCurrentUser} setAuthed={setAuthed}/>}
           />
           <Route
             path="/login"

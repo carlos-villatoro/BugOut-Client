@@ -1,7 +1,7 @@
 import {
   Routes,
   Route,
-  Navigate
+  Navigate,
 } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Login from './components/pages/Login'
@@ -13,6 +13,7 @@ import jwt_decode from 'jwt-decode'
 import Project from './components/pages/Project'
 import Bugs from './components/pages/Bugs'
 import axios from 'axios'
+import NotFound from './components/NotFound'
 
 function App() {
   // the currently logged in user will be stored up here in state
@@ -24,14 +25,14 @@ function App() {
   const [allMembers, setAllMembers] = useState([])
   const [showProjectForm, setShowProjectForm] = useState(false)
   const [projectForm, setProjectForm] = useState({
-		name: "",
-		language: "",
-		description: '',
-		notes: '',
-		priority: '',
-		manager: '',
-		users: []
-	})
+    name: "",
+    language: "",
+    description: '',
+    notes: '',
+    priority: '',
+    manager: '',
+    users: []
+  })
 
   const initializeState = () => localStorage.getItem('jwt')
   const [token, setToken] = useState(initializeState)
@@ -54,14 +55,14 @@ function App() {
     }
     findAllUsers()
     // console.log(currentUser)
-    
+
   }, []) // happen only once
-  
+
   // console.log(currentUser)
   // console.log(allUsers)
-  
+
   // console.log(currentUser)
-  
+
   // event handler to log the user out when needed
   const handleLogout = () => {
     // check to see if a token exists in local storage
@@ -72,57 +73,70 @@ function App() {
       setCurrentUser(null)
     }
   }
-  
+
   return (
-      <div>
-        <header>
-          <Navbar
-            currentUser={currentUser}
-            handleLogout={handleLogout}
-          />
-        </header>
-        <div className="App">
-          <Routes>
-            <Route
-              path="/"
-              element={currentUser ? <Dashboard handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} />
+    <div>
+      <header>
+        <Navbar
+          currentUser={currentUser}
+          handleLogout={handleLogout}
+        />
+      </header>
+      <div className="App">
+        <Routes>
+          <Route
+            path="/"
+            element={token ? <Dashboard handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} />
               : <Navigate to="/login" />}
-            />
-            <Route
-              path="/register"
-              element={<Register currentUser={currentUser} setCurrentUser={setCurrentUser} />}
-            />
-            <Route
-              path="/login"
-              element={<Login currentUser={currentUser} setCurrentUser={setCurrentUser} />}
-            />
-            <Route
-              path="/projects/:id"
-              element={<Project currentUser={currentUser} setCurrentUser={setCurrentUser} projects={projects} setProjects={setProjects} allUsers={allUsers} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} setProjectForm={setProjectForm} projectForm={projectForm} />}
-            />
-            <Route
-              path="/bugs"
-              element={<Bugs currentUser={currentUser} setCurrentUser={setCurrentUser} />}
-            />
-            {/* conditionally render auth locked routes */}
-            <Route
-              path="/profile"
-              element=
-             { <Profile
-              handleLogout={handleLogout}
-              currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-              projects={projects}
-              setProjects={setProjects}
-              allUsers={allUsers}
-              showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} setProjectForm={setProjectForm}
-              projectForm={projectForm}/> 
+          />
+          <Route
+            path="/register"
+            element={<Register currentUser={currentUser} setCurrentUser={setCurrentUser} />}
+          />
+          <Route
+            path="/login"
+            element={<Login currentUser={currentUser} setCurrentUser={setCurrentUser} />}
+          />
+          <Route
+            path="/projects/:id"
+            element={token ?
+              <Project currentUser={currentUser} setCurrentUser={setCurrentUser} projects={projects} setProjects={setProjects} allUsers={allUsers} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} setProjectForm={setProjectForm} projectForm={projectForm} /> :
+              <Navigate to='/login' />
             }
-            />
-          </Routes>
-        </div>
+          />
+          <Route
+            path="/bugs"
+            element={token ?
+              <Bugs currentUser={currentUser} setCurrentUser={setCurrentUser} /> :
+              <Navigate to='/login' />
+            }
+          />
+          {/* conditionally render auth locked routes */}
+          <Route
+            path="/profile"
+            element=
+            {token ?
+              <Profile
+                handleLogout={handleLogout}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+                projects={projects}
+                setProjects={setProjects}
+                allUsers={allUsers}
+                showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} setProjectForm={setProjectForm}
+                projectForm={projectForm} /> :
+              <Navigate to='/login' />
+            }
+          />
+
+          <Route path='*' element={<NotFound/>} />
+
+        </Routes>
       </div>
+    </div >
   );
 }
+
+
 
 export default App;

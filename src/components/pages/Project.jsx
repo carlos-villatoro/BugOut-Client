@@ -143,6 +143,7 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 						<div className='flex items-center flex-col text-2xl m-0'>
 							<h1 className="font-extrabold">Project: {project.name}</h1>
 							<p>{project.description}</p>
+							<p>Notes: {project.notes}</p>
 							<p>Primary Language:{project.language}</p>
 							<p>Priority: {project.priority}</p>
 							{projectUsers}

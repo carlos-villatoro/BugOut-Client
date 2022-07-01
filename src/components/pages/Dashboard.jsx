@@ -24,7 +24,7 @@ export default function Dashboard({ projects, setProjects }) {
 		.map((project) =>
 			//add a Link to specific project
 
-			<div key={`${project._id}`}className='  border text-left rounded-2xl py-12 px-8 md:max-w-[250px] max-w-[250px] '>
+			<div key={`${project._id}`} className='  border text-left rounded-2xl py-12 px-8 md:max-w-[250px] max-w-[250px] '>
 				<Link to={`/projects/${project._id}`} >
 					<div>
 						<div className='bg-[#474747] inline-flex p-2 rounded-full'>
@@ -81,13 +81,22 @@ export default function Dashboard({ projects, setProjects }) {
 	return (
 		<div className="justify-center md:max-w-[1116px] mx-auto " >
 			hello from Dashboard
-			<form onSubmit={handleSubmit}>
+			{/* <form onSubmit={handleSubmit}>
 				<input
 					type="text"
 					placeholder="Search"
 					onChange={handleChange}
 					value={search}
 				/>
+			</form> */}
+			<form class="flex items-center" onSubmit={handleSubmit}>
+				<label for="simple-search" class="sr-only">Search</label>
+				<div class="relative w-full">
+					<div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+						<svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+					</div>
+					<input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#00E331] focus:border-[#00E331] block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-[#00E331] dark:focus:border-[#00E331]" placeholder="Search for a Project" onChange={handleChange} value={search} required />
+				</div>
 			</form>
 			{searchedDb.length === 0 ? (
 				<div>

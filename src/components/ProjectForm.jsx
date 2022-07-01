@@ -1,8 +1,10 @@
+import { useState } from 'react'
 import { useEffect } from 'react'
 
 
 export default function ProjectForm({currentUser, projectForm, setProjectForm, allUsers, projects, setProjects, showProjectForm, setShowProjectForm, handleSubmit, project, authed}) {
 
+    const [checkedUser, setCheckedUser]= useState({})
     const handleCancelClick = () => {
         setShowProjectForm(!showProjectForm)
         setProjectForm(project)
@@ -25,11 +27,11 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
     }
 
     const availableUsers = allMembers.map((member, i) => {
-        console.log('XXXXXX',checkUsers(member._id))
+        // console.log('XXXXXX',checkUsers(member._id))
         return(
             <div key={member._id}>
                 <p>
-                <input id={`${member._id}`} type='checkbox' value={member._id} checked={checkUsers(member._id)} onChange={e=> handleCheckbox(e, i)}/>
+                <input id={`${member._id}`} type='checkbox' value={member._id} checked={checkedUser.checked} onChange={e=> handleCheckbox(e, i)}/>
                 <label htmlFor={`${member._id}`}>{member.name}</label>
                 </p>
             </div>
@@ -45,13 +47,20 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
 
     const handleCheckbox = (e, i) =>{
         // console.log(e)
+        // if you check a user & they're aren't already assigned to the project, assign them
         if(e.target.checked && !checkUsers(e.target.value)){
             setProjectForm({...projectForm, users:[...projectForm.users, allMembers.find(member => member._id === e.target.value)]})
+            // setCheckedUser(allMembers.find(member => member._id === e.target.value)) 
+            // setCheckedUser({...checkedUser, checked: true})
+            console.log('OOOOOOOOOO',checkedUser)
+            // when you uncheck a user & they are assigned to the project remove them
         }else if(!e.target.checked && checkUsers(e.target.value)) {
             // console.log(i, '🌗')
             projectForm.users.splice(i, 1)
             setProjectForm({...projectForm, users: projectForm.users})
-           
+            setCheckedUser(allMembers.find(member => member._id === e.target.value)) 
+            setCheckedUser({...checkedUser, checked: true})
+            console.log('XXXXXXXX',checkedUser)
         }
     }
 

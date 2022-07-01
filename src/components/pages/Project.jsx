@@ -123,19 +123,24 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 			<div >
 				{/* render project form if showProjectForm is true */}
 				{showProjectForm ?
-				<ProjectForm
-				projectForm={projectForm}
-				setProjectForm={setProjectForm}
-				allUsers={allUsers}
-				projects={projects}
-				setProjects={setProjects}
-				currentUser={currentUser}
-				handleSubmit={handleProjectEdit}
-				setShowProjectForm={setShowProjectForm}
-				project={project}
-				checkedUsers={checkedUsers}
-				setCheckedUsers={setCheckedUsers}
-				/>
+				<div>
+					<ProjectForm
+					projectForm={projectForm}
+					setProjectForm={setProjectForm}
+					allUsers={allUsers}
+					projects={projects}
+					setProjects={setProjects}
+					currentUser={currentUser}
+					handleSubmit={handleProjectEdit}
+					setShowProjectForm={setShowProjectForm}
+					project={project}
+					checkedUsers={checkedUsers}
+					setCheckedUsers={setCheckedUsers}
+					/>
+					<button onClick={() => handleProjectEditClick()} className='text-xl rounded-lg px-3 py-1 m-4 bg-[#00E331] text-gray-700 '>
+						Cancel
+					</button>
+				</div>
 				:
 				// render project info
 				<div >
@@ -152,7 +157,7 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 								Edit Project
 							</button>
 							:
-							"Cancel"
+							""
 							}
 						</div>
 						{/* does the project have bugs? */}

@@ -2,12 +2,11 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import ProjectForm from '../ProjectForm'
 import { Link, Navigate } from 'react-router-dom'
+import { BsFolderSymlinkFill } from 'react-icons/bs'
 
-
-
-export default function Profile({ currentUser, handleLogout,  projects, setProjects, allUsers, showProjectForm, setShowProjectForm, projectForm, setProjectForm, authed, checkedUsers, setCheckedUsers }) {
+export default function Profile({ currentUser, handleLogout, projects, setProjects, allUsers, showProjectForm, setShowProjectForm, projectForm, setProjectForm, authed, checkedUsers, setCheckedUsers }) {
 	const [userProjects, setUserProjects] = useState([])
-	
+
 	const handleClick = () => {
 		setShowProjectForm(!showProjectForm)
 		setProjectForm({
@@ -27,9 +26,11 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 		// console.log(projectForm)
 		try {
 			// set projectform's users array to array of checked users id and assign to variable
-			const updatedProjectForm = {...projectForm, users: checkedUsers.map(user => {
-				return user._id
-			})}
+			const updatedProjectForm = {
+				...projectForm, users: checkedUsers.map(user => {
+					return user._id
+				})
+			}
 			// console.log(updatedProjectForm)
 			// create project from updatedProjectForm
 			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/projects`, updatedProjectForm)
@@ -42,11 +43,11 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 			// console.log(response)
 			// clear the project form
 			setProjectForm({
-				name:"",
-				language:"",
-				description:'',
+				name: "",
+				language: "",
+				description: '',
 				notes: '',
-				priority:'',
+				priority: '',
 				manager: '',
 				users: []
 			})
@@ -54,7 +55,7 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 		} catch (error) {
 			console.log(error)
 		}
-	  }
+	}
 	// state for the secret message (aka user privileged data)
 	const [msg, setMsg] = useState('')
 
@@ -94,43 +95,74 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 		//hide project form if page is navigated to 
 		setShowProjectForm(false)
 	}, [])
+
 	// sort users project by priority
 	const sortedProjects = [...userProjects].sort((a, b) => a.priority > b.priority ? 1 : -1)
 		.map((project) =>
 			//add a Link to specific project
-			<Link  to={`/projects/${project._id}`} key={`${project._id}`}>{project.name} {project.priority}</Link>
-		);
+			<div key={`${project._id}`}
+				className='border rounded-2xl py-12 px-8 w-full min-w-[250px]'
+			>
+				<Link to={`/projects/${project._id}`} >
+					<div className="text-center">
+						<div className='bg-[#474747] inline-flex p-2 rounded-full'>
+							<BsFolderSymlinkFill size={40} />
+						</div>
+
+						<h3 className='text-xl font-bold py-4 uppercase tracking-tight'>{project.name}</h3>
+						<div className="flex flex-row">
+							<div className="basis-1/2">Priority: {project.priority}</div>
+							<div className="basis-1/2">Bugs: {project.bugs.length}</div>
+						</div>
+					</div>
+				</Link>
+			</div>
+		)
+
 	const managerProfile = (
 		<div>
-			<h1 className='items-center m-auto text-5xl '>{authed.role}</h1>
-			<div className=' flex justify-center flex-col grayBackground py-6 w-[25%] m-auto rounded-lg'>
-				
-				<p>{authed.name}</p>
+			<h1 className='items-center m-auto text-3xl px-4'>{authed.name}'s Projects</h1>
+			<p className='items-center m-auto text-gray-500 text-xl px-4'>{authed.role}</p>
+			<div className=' md:max-w-[1116px] mx-auto py-8 px-4 items-center max-w-full'>
+
 
 				<div>
-				{showProjectForm ?
-					<ProjectForm currentUser={currentUser} projectForm={projectForm} setProjectForm={setProjectForm} handleProjectSubmit={handleProjectSubmit} projects={projects} setProjects={setProjects} allUsers={allUsers} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} handleSubmit={handleProjectSubmit} checkedUsers={checkedUsers} setCheckedUsers={setCheckedUsers} />
-					:
-					sortedProjects
-				}
+					{showProjectForm ?
+						<ProjectForm currentUser={currentUser} projectForm={projectForm} setProjectForm={setProjectForm} handleProjectSubmit={handleProjectSubmit} projects={projects} setProjects={setProjects} allUsers={allUsers} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} handleSubmit={handleProjectSubmit} checkedUsers={checkedUsers} setCheckedUsers={setCheckedUsers} />
+						:
+						<div
+							className="grid grid-cols-1 gap-8 md:grid-cols-3 content-around">
+							{sortedProjects}
+						</div>
+					}
 				</div>
-				<button
-					onClick={() => handleClick() }
-				>
-				{showProjectForm ? '' : 'Add a Project'}
+
+				<button onClick={() => handleClick()} className='text-2xl rounded-lg px-3 py-1 m-4 bg-[#00E331] text-gray-700 clicked:transparent' >
+					{showProjectForm ?
+						'Cancel' :
+						'Add a Project'
+					}
 				</button>
+
 			</div>
 		</div>
 	)
-	const memberProfile =(
+
+	const memberProfile = (
 		<div>
-			<p>{authed.name}</p>
-			<p>{authed.role}</p>
-			<div> {sortedProjects}</div>
+			<h1 className='items-center m-auto text-3xl px-4'>{authed.name}'s Projects</h1>
+			<p className='items-center m-auto text-gray-500 text-xl px-4'>{authed.role}</p>
+			<div className=' md:max-w-[1116px] mx-auto py-8 px-4 items-center max-w-full'>
+				<div
+					className="grid grid-cols-1 gap-8 md:grid-cols-3 content-around">
+					{sortedProjects}
+				</div>
+			</div>
 		</div>
 	)
+
 	// console.log(currentUser)
-		// if not logged in navigate to login page
+	// if not logged in navigate to login page
 	if (!authed) {
 		return <Navigate to="/login" />
 	}

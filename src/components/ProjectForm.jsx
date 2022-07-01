@@ -117,7 +117,7 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
         
         <button type='submit'>Submit</button>
 
-        <button onClick={() => handleCancelClick()}>Cancel</button>
+        {/* <button onClick={() => handleCancelClick()}>Cancel</button> */}
     </form>
   )
 }

@@ -29,7 +29,7 @@ export default function Dashboard({ projects, setProjects, showProjectForm, setS
 		.map((project) =>
 
 			<div key={`${project._id}`}
-				className='border text-left rounded-2xl py-12 px-8 md:max-w-[250px] max-w-[250px] p-5'
+				className='border rounded-2xl py-12 px-8 w-full min-w-[250px]'
 			>
 				<Link to={`/projects/${project._id}`} >
 					<div className="text-center">
@@ -38,9 +38,10 @@ export default function Dashboard({ projects, setProjects, showProjectForm, setS
 						</div>
 
 						<h3 className='text-xl font-bold py-4 uppercase tracking-tight'>{project.name}</h3>
-						<p>
-							Priority: {project.priority}
-						</p>
+						<div className="flex flex-row">
+								<div className="basis-1/2">Priority: {project.priority}</div>
+								<div className="basis-1/2">Bugs: {project.bugs.length}</div>
+						</div>
 					</div>
 				</Link>
 			</div>
@@ -107,7 +108,7 @@ export default function Dashboard({ projects, setProjects, showProjectForm, setS
 					<div>
 						<h3 className="m-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">All Projects</h3>
 						<div
-							className="grid grid-cols-1 gap-4 md:grid-cols-3  ">
+							className="grid grid-cols-1 gap-8 md:grid-cols-3 content-around">
 							{sortedProjects}
 						</div>
 					</div>

@@ -152,7 +152,7 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 								Edit Project
 							</button>
 							:
-							""
+							"Cancel"
 							}
 						</div>
 						{/* does the project have bugs? */}

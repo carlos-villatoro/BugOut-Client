@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
-import { Navigate, Link,  } from 'react-router-dom'
+import { Navigate, Link, } from 'react-router-dom'
 
 export default function Login({ currentUser, setCurrentUser, setAuthed }) {
 	// state for the controlled form
@@ -31,7 +31,7 @@ export default function Login({ currentUser, setCurrentUser, setAuthed }) {
 			setCurrentUser(decoded)
 			setAuthed(decoded)
 
-			
+
 			// 
 		} catch (err) {
 			console.warn(err)
@@ -41,7 +41,7 @@ export default function Login({ currentUser, setCurrentUser, setAuthed }) {
 				}
 			}
 		}
-	} 
+	}
 
 	// conditionally render a navigate component
 	if (currentUser) {
@@ -60,27 +60,31 @@ export default function Login({ currentUser, setCurrentUser, setAuthed }) {
 					<input
 						type="email"
 						id="email"
-						placeholder='Enter Email'
+						placeholder='...'
 						onChange={e => setEmail(e.target.value)}
 						value={email}
 						className=' block px-2.5 pb-2.5 pt-4 bg-transparent rounded-md py-1 pl-3  my-4 focus:outline-none focus:ring-0 border-1 border-gray-300 appearance-none focus:border-blue-600 peer'
 					/>
-					{/* block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer */}
 					<label
 						htmlFor='email'
-						className='absolute text-gray-400  duration-300 transform -translate-y-4  top-2 z-10 origin-[0] bg-white dark:bg-gray-600 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1'
-						>Email:</label>
+						className='absolute text-gray-400  duration-300 transform -translate-y-4  top-2 z-10 origin-[0] bg-white dark:bg-gray-600 px-2 peer-focus:px-2 peer-focus:text-[#00E331] peer-focus:dark:text-[#00E331] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1'
+					>Email:</label>
 				</div>
 				{/* <label htmlFor='password'>Password:</label> */}
-				<input
-					type="password"
-					id="password"
-					placeholder='Enter Password'
-					onChange={e => setPassword(e.target.value)}
-					value={password}
-					className='bg-white rounded-md py-1 pl-3  '
-				/>
-
+				<div className='relative'>
+					<input
+						type="password"
+						id="password"
+						placeholder='...'
+						onChange={e => setPassword(e.target.value)}
+						value={password}
+						className=' block px-2.5 pb-2.5 pt-4 bg-transparent rounded-md py-1 pl-3  my-4 focus:outline-none focus:ring-0 border-1 border-gray-300 appearance-none focus:border-blue-600 peer'
+					/>
+					<label
+						htmlFor='password'
+						className='absolute text-gray-400  duration-300 transform -translate-y-4  top-2 z-10 origin-[0] bg-white dark:bg-gray-600 px-2 peer-focus:px-2 peer-focus:text-[#00E331] peer-focus:dark:text-[#00E331] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1'
+					>Password:</label>
+				</div>
 				<button type="submit" className='rounded-lg buttons px-3 py-1 m-2 '>Login</button>
 			</form>
 			<p className='flex items-center flex-col  '>Don't have an account? <Link to='/register'>Register One Now</Link></p>

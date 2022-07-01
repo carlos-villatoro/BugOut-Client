@@ -8,7 +8,7 @@ export default function BugForm({authed, bugForm, setBugForm, handleSubmit, show
     console.log(bugForm)
 
     const handleStatusChange = e => {
-        console.log("this is what the new status should be:",e.target.value)
+        // console.log("this is what the new status should be:",e.target.value)
         setBugForm({...bugForm, status: e.target.value})
     }
     
@@ -56,14 +56,22 @@ export default function BugForm({authed, bugForm, setBugForm, handleSubmit, show
                 onChange={(e) => handleStatusChange(e)}
             />
             <label htmlFor='WIP'>WIP</label>
-            <input
+            {/* only available to non-managers */}
+            {authed.role === 'member' ? 
+            <div>
+                <input
                 type='radio'
                 id='needsApproval'
                 name='status'
                 value='Needs Approval'
                 onChange={(e) => handleStatusChange(e)}
-            />
-            <label htmlFor='needsApproval'>Needs Approval</label>
+                />
+                <label htmlFor='needsApproval'>Needs Approval</label>
+            </div>
+            :
+            ''
+            }
+            {/* only available to managers */}
             {authed.role === 'manager' ?
                 <div>
                     <input

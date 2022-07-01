@@ -14,7 +14,7 @@ export default function BugDetails({project, setProject, bug, handleClick, showB
         setBugForm(bug)
         setShowBugStatus(true)
     }
-// /62bdd7575638565949528bdc
+    // loop through array of all bugs associated w/project & if one matches specific bug return its index
     const findBug = (project) => {
         for(let i = 0; i < project.bugs.length; i++){
           if(project.bugs[i] === bug._id){
@@ -23,35 +23,40 @@ export default function BugDetails({project, setProject, bug, handleClick, showB
         }
     }
     const handleDelete = async() => {
+      // get the specific project info
       const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects/${projectId}`)
+      // set specific projects bug array to variable
       const projectBugs = response.data.bugs
+      // remove found bug (from line 18) from bug array
       const spliced = projectBugs.splice(findBug(project), 1)
-      console.log('spliced*****',spliced)
-      console.log('XXXXXXXXXXXX',projectBugs)
-
+      // console.log('spliced*****',spliced)
+      // console.log('XXXXXXXXXXXX',projectBugs)
+      // update project state with updated bug array
       setProject({...project, bugs: projectBugs})
-      console.log("projectBugs", projectBugs, "projectState", project)
-
+      // console.log("projectBugs", projectBugs, "projectState", project)
+      // update db with new project state
       const projectResponse = await axios.put(`${process.env.REACT_APP_SERVER_URL}/projects/${projectId}`, project)
-      console.log('PROJECT RESPONSE DOT DATA!!',projectResponse.data)
-
+      // console.log('PROJECT RESPONSE DOT DATA!!',projectResponse.data)
+      // delete specific bug from db
       await axios.delete(`${process.env.REACT_APP_SERVER_URL}/bugs/${bug._id}`)
-
+      // get all bugs
       const updatedBugs = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects/${projectId}/bugs`)
-      console.log(updatedBugs.data)
+      // console.log(updatedBugs.data)
       setBugs(updatedBugs.data)
     }
 
     const handleBugEditSubmit = async (e, bugForm) => {
         e.preventDefault()
         try {
+          // update bug db from bugForm info
             const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/bugs/${bug._id}`, bugForm)
+            // get all bugs
             const bugResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects/${projectId}/bugs`)
-            console.log(bugResponse.data)
+            // console.log(bugResponse.data)
             setBugs(bugResponse.data)
+            // hide bug form
             setShowEditBugForm(false)
-            // navigate(`/projects/${projectId}`, {replace: true})
-            console.log('bug has been edited')
+            // console.log('bug has been edited')
         } catch (error) {
             console.log(error)
         }

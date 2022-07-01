@@ -53,7 +53,7 @@
 ---
 
 ## Wireframes
-![Wireframes](public/images/Wireframes.jpg)
+![Wireframes](public/images/Bug-Out-Wireframes.jpg)
 
 ---
 

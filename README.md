@@ -6,6 +6,18 @@
 
 ---
 ## Website Photos
+![Login Page](./public/images/Login%20Page.png)
+
+![Register Page](./public/images/Register%20Page.png)
+
+![Projects Dashboard](./public/images/Projects%20Dashboard.png)
+
+![Profile Page](./public/images/Profile%20Page.png)
+
+![Project Form Page](./public/images/Project%20Form%20Page.png)
+
+![Project Detail and Bug Form Page](./public/images/Project%20Detail%20and%20Bug%20Form%20Page.png)
+
 
 ---
 

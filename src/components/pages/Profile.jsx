@@ -30,12 +30,13 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 			const updatedProjectForm = {...projectForm, users: checkedUsers.map(user => {
 				return user._id
 			})}
-			
+			console.log(updatedProjectForm)
 			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/projects`, updatedProjectForm)
-			// console.log(response.data)
+			console.log('post for project submit',response.data)
 			setProjects([...projects, response.data])
+			console.log(response.data._id)
 			setUserProjects([...userProjects, response.data])
-			// console.log(response)
+			console.log(response)
 			setProjectForm({
 				name:"",
 				language:"",
@@ -94,14 +95,14 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 		);
 	const managerProfile = (
 		<div>
-			<h1 className='items-center m-auto text-5xl'>{authed.role}</h1>
+			<h1 className='items-center m-auto text-5xl '>{authed.role}</h1>
 			<div className=' flex justify-center flex-col grayBackground py-6 w-[25%] m-auto rounded-lg'>
 				
 				<p>{authed.name}</p>
 
 				<div>
 				{showProjectForm ?
-					<ProjectForm currentUser={currentUser} projectForm={projectForm} setProjectForm={setProjectForm} handleProjectSubmit={handleProjectSubmit} projects={projects} setProjects={setProjects} allUsers={allUsers} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} handleSubmit={handleProjectSubmit} />
+					<ProjectForm currentUser={currentUser} projectForm={projectForm} setProjectForm={setProjectForm} handleProjectSubmit={handleProjectSubmit} projects={projects} setProjects={setProjects} allUsers={allUsers} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} handleSubmit={handleProjectSubmit} checkedUsers={checkedUsers} setCheckedUsers={setCheckedUsers} />
 					:
 					sortedProjects
 				}

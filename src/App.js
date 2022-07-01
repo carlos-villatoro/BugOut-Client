@@ -86,7 +86,7 @@ function App() {
           handleLogout={handleLogout}
         />
       </header>
-      <div className="App">
+      <div className="App ">
         <Routes>
           <Route
             path="/"

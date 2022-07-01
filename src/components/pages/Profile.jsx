@@ -5,7 +5,7 @@ import { Link, Navigate } from 'react-router-dom'
 
 
 
-export default function Profile({ currentUser, handleLogout,  projects, setProjects, allUsers, showProjectForm, setShowProjectForm, projectForm, setProjectForm, authed }) {
+export default function Profile({ currentUser, handleLogout,  projects, setProjects, allUsers, showProjectForm, setShowProjectForm, projectForm, setProjectForm, authed, checkedUsers, setCheckedUsers }) {
 	const [userProjects, setUserProjects] = useState([])
 	
 	const handleClick = () => {
@@ -26,7 +26,12 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 		console.log(currentUser.id)
 		// console.log(projectForm)
 		try {
-			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/projects`, projectForm)
+
+			const updatedProjectForm = {...projectForm, users: checkedUsers.map(user => {
+				return user._id
+			})}
+			
+			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/projects`, updatedProjectForm)
 			// console.log(response.data)
 			setProjects([...projects, response.data])
 			setUserProjects([...userProjects, response.data])

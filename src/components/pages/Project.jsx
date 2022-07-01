@@ -5,7 +5,7 @@ import ProjectForm from "../ProjectForm"
 import BugForm from "../BugForm"
 import Bugs from "./Bugs"
 
-export default function Project({showProjectForm, setShowProjectForm, setProjectForm, projectForm, currentUser, projects, setProjects, allUsers, authed}) {
+export default function Project({showProjectForm, setShowProjectForm, setProjectForm, projectForm, currentUser, projects, setProjects, allUsers, authed, checkedUsers, setCheckedUsers}) {
 	const { id } = useParams()
 	const [bugs, setBugs] = useState([])
 	const [project, setProject] = useState([])
@@ -69,7 +69,10 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 		e.preventDefault()
 		// console.log(projectForm)
 		try {
-			const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/projects/${id}`, projectForm)
+			const updatedProjectForm = {...projectForm, users: checkedUsers.map(user => {
+				return user._id
+			})}
+			const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/projects/${id}`, updatedProjectForm)
 			setShowProjectForm(false)
 			const projectResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects/${id}`)
 			// console.log('response dot data for projects',projectResponse.data)
@@ -121,6 +124,8 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 				handleSubmit={handleProjectEdit}
 				setShowProjectForm={setShowProjectForm}
 				project={project}
+				checkedUsers={checkedUsers}
+				setCheckedUsers={setCheckedUsers}
 				/>
 				:
 				<div>

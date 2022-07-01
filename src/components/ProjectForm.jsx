@@ -2,72 +2,53 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 
 
-export default function ProjectForm({currentUser, projectForm, setProjectForm, allUsers, projects, setProjects, showProjectForm, setShowProjectForm, handleSubmit, project, authed}) {
+export default function ProjectForm({currentUser, projectForm, setProjectForm, allUsers, projects, setProjects, showProjectForm, setShowProjectForm, handleSubmit, project, checkedUsers, setCheckedUsers, authed}) {
 
-    const [checkedUser, setCheckedUser]= useState({})
     const handleCancelClick = () => {
         setShowProjectForm(!showProjectForm)
         setProjectForm(project)
     }
 
-
     const allMembers = allUsers.filter(user => {
         return user.role !== 'manager'
     })
     
-    const checkUsers = (member) => {
-        let checked = false
-        for(let i= 0; i < projectForm.users.length; i++){
-            if(projectForm.users[i]._id === member){
-                checked = true
-                break
-            }
-        }
-        return checked
-    }
-
     const availableUsers = allMembers.map((member, i) => {
         // console.log('XXXXXX',checkUsers(member._id))
         return(
             <div key={member._id}>
                 <p>
-                <input id={`${member._id}`} type='checkbox' value={member._id} checked={checkedUser.checked} onChange={e=> handleCheckbox(e, i)}/>
+                <input id={`${member._id}`} type='checkbox' value={member._id} checked={checkedUsers.some((user) => user._id === member._id)} onChange={e=> handleCheckbox(e, i)}/>
                 <label htmlFor={`${member._id}`}>{member.name}</label>
                 </p>
             </div>
         )
   
     })
-   
-    const userArray = projectForm.users.map(user => {
-        return user._id
-    })
-
-    console.log('🐍🐍',userArray)
 
     const handleCheckbox = (e, i) =>{
         // console.log(e)
+        const checkedUsersIds = checkedUsers.map(user => {
+            return user._id
+        })
+        console.log(checkedUsersIds)
         // if you check a user & they're aren't already assigned to the project, assign them
-        if(e.target.checked && !checkUsers(e.target.value)){
-            setProjectForm({...projectForm, users:[...projectForm.users, allMembers.find(member => member._id === e.target.value)]})
-            // setCheckedUser(allMembers.find(member => member._id === e.target.value)) 
-            // setCheckedUser({...checkedUser, checked: true})
-            console.log('OOOOOOOOOO',checkedUser)
-            // when you uncheck a user & they are assigned to the project remove them
-        }else if(!e.target.checked && checkUsers(e.target.value)) {
-            // console.log(i, '🌗')
-            projectForm.users.splice(i, 1)
-            setProjectForm({...projectForm, users: projectForm.users})
-            setCheckedUser(allMembers.find(member => member._id === e.target.value)) 
-            setCheckedUser({...checkedUser, checked: true})
-            console.log('XXXXXXXX',checkedUser)
+        if(e.target.checked && !checkedUsers.some((user) => user._id === e.target.value)){
+            setCheckedUsers([...checkedUsers, allMembers.find(member => member._id === e.target.value)]) 
+        }else if(!e.target.checked && checkedUsers.some((user) => user._id === e.target.value)) {
+            const idx = checkedUsersIds.indexOf(e.target.value)
+            const checkedUsersCopy = [...checkedUsers]
+            checkedUsersCopy.splice(idx, 1)
+            setCheckedUsers(checkedUsersCopy)
         }
     }
 
     useEffect(()=>{
         setProjectForm({...projectForm, manager:currentUser.id})
     },[])
-
+    useEffect(()=>{
+        setCheckedUsers(projectForm.users)
+    },[projectForm])
     
   return (
     <form 

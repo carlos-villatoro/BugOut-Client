@@ -3,6 +3,8 @@ import axios from "axios"
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { BsFolderSymlinkFill } from 'react-icons/bs'
+import {AiFillBug} from 'react-icons/ai'
+import {FaSortAmountUpAlt} from 'react-icons/fa'
 
 export default function Dashboard({ projects, setProjects, showProjectForm, setShowProjectForm }) {
 
@@ -38,9 +40,9 @@ export default function Dashboard({ projects, setProjects, showProjectForm, setS
 						</div>
 
 						<h3 className='text-xl font-bold py-4 uppercase tracking-tight'>{project.name}</h3>
-						<div className="flex flex-row">
-								<div className="basis-1/2">Priority: {project.priority}</div>
-								<div className="basis-1/2">Bugs: {project.bugs.length}</div>
+						<div className="flex flex-row ">
+								<div className="basis-1/2 flex justify-center text-lg"> <FaSortAmountUpAlt size={25} className='mx-1'/> {project.priority}</div>
+								<div className="basis-1/2 flex justify-center text-lg" ><AiFillBug size={25} className='mx-1'/> {project.bugs.length}</div>
 						</div>
 					</div>
 				</Link>

@@ -3,6 +3,8 @@ import axios from 'axios'
 import ProjectForm from '../ProjectForm'
 import { Link, Navigate } from 'react-router-dom'
 import { BsFolderSymlinkFill } from 'react-icons/bs'
+import {AiFillBug} from 'react-icons/ai'
+import {FaSortAmountUpAlt} from 'react-icons/fa'
 
 export default function Profile({ currentUser, handleLogout, projects, setProjects, allUsers, showProjectForm, setShowProjectForm, projectForm, setProjectForm, authed, checkedUsers, setCheckedUsers }) {
 	const [userProjects, setUserProjects] = useState([])
@@ -111,8 +113,8 @@ export default function Profile({ currentUser, handleLogout, projects, setProjec
 
 						<h3 className='text-xl font-bold py-4 uppercase tracking-tight'>{project.name}</h3>
 						<div className="flex flex-row">
-							<div className="basis-1/2">Priority: {project.priority}</div>
-							<div className="basis-1/2">Bugs: {project.bugs.length}</div>
+							<div className="basis-1/2 flex justify-center text-lg"> <FaSortAmountUpAlt size={25} className='mx-1' /> {project.priority}</div>
+							<div className="basis-1/2 flex justify-center text-lg" ><AiFillBug size={25} className='mx-1' /> {project.bugs.length}</div>
 						</div>
 					</div>
 				</Link>

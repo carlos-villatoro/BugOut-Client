@@ -19,6 +19,7 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 		priority: "",
 		status: "Not Started"
 	})
+	const [pm, setPm] = useState()
 	
 
 	const handleBugCreateClick = () => {
@@ -97,6 +98,10 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 				// get specific project info
 				const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects/${id}`)
 				// console.log(response.data)
+				const pm = response.data.manager 
+				const pmResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/${pm}`)
+				// console.log(pmResponse.data)
+				setPm(pmResponse.data)
 				setProject(response.data)
 				setUsers(response.data.users)
 			} catch (error) {
@@ -111,11 +116,14 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 		return <h2 key={user._id}>users associated: {user.name}</h2>
 	})
 
+	// const pm = allUsers.filter(user => user._id === project.manager)
+	console.log('😀',pm)
+
 	console.log(project)
 	return (
 		<div >
 			{/* if user is logged in & users exists */}
-			{currentUser && users ? 
+			{currentUser && users && pm ? 
 			// render everything 
 			<div >
 				{/* render project form if showProjectForm is true */}
@@ -136,10 +144,10 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 				:
 				// render project info
 				<div >
-					<div className='flex justify-center flex-col grayBackground py-6  m-auto rounded-lg w-[400px] '>
+					<div className='flex justify-center flex-col grayBackground  m-auto  w-[400px] border rounded-2xl py-12 px-8 sm:w-[70%] min-w-[250px]'>
 						<div className='flex items-center flex-col text-2xl m-0'>
 							<h1>Project: {project.name}</h1>
-							<h2>Manager: {project.manager}</h2>
+							<h2>Manager: {pm.name}</h2>
 							<p>{project.description}</p>
 							<p>Primary Language:{project.language}</p>
 							<p>Priority: {project.priority}</p>

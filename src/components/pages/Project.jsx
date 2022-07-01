@@ -79,6 +79,7 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 			setProject(projectResponse.data)
 			setUsers(projectResponse.data.users)
 			console.log('users inside handleProjectEdit',users)
+			setCheckedUsers([])
 		} catch (error) {
 			console.log(error)
 		}
@@ -105,14 +106,12 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 		return <h2 key={user._id}>users associated: {user.name}</h2>
 	})
 
-
+	console.log(project)
 	return (
-		<div>
+		<div >
 			{currentUser && users ? 
-			<div>
-				<div>
-					<Link to={'/'}>Back to Projects</Link>
-				</div>
+			<div >
+				
 				{showProjectForm ?
 				<ProjectForm
 				projectForm={projectForm}
@@ -128,53 +127,55 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 				setCheckedUsers={setCheckedUsers}
 				/>
 				:
-				<div>
-				<h1>Project: {project.name}</h1>
-				<h2>Manager: {project.manager}</h2>
-				<p>{project.description}</p>
-				<p>Primary Language:{project.language}</p>
-				<p>Priority: {project.priority}</p>
-				{projectUsers}
-				{authed && authed.role === 'manager' ?
-				<button onClick={() => handleProjectEditClick()}>
-					 Edit Project
-				</button>
-				:
-				""
-				}
-				{project.bugs !== []?
-					<Bugs
-					id={id}
-					showBugStatus={showBugStatus}
-					setShowBugStatus={setShowBugStatus}
-					showBugForm={showBugForm}
-					setShowBugForm={setShowBugForm}
-					authed={authed}
-					bugForm={bugForm}
-					setBugForm={setBugForm}
-					setProject={setProject}
-					project={project}
-					bugs={bugs}
-					setBugs={setBugs}
-					 />
+				<div className='flex justify-center flex-col grayBackground py-6  m-auto rounded-lg w-[400px] '>
+					<div className='flex items-center flex-col text-2xl m-0 underline'>
+					<h1>Project: {project.name}</h1>
+					<h2>Manager: {project.manager}</h2>
+					<p>{project.description}</p>
+					<p>Primary Language:{project.language}</p>
+					<p>Priority: {project.priority}</p>
+					{projectUsers}
+					{authed && authed.role === 'manager' ?
+					<button onClick={() => handleProjectEditClick()}>
+						Edit Project
+					</button>
 					:
 					""
-				}
-					{showBugForm ?
-				<BugForm
-				bugForm={bugForm}
-				setBugForm={setBugForm}
-				handleSubmit={handleBugSubmit}
-				showBugStatus={showBugStatus}
-				authed={authed}
-				/>
-				:
-				''}
-				<button
-				onClick={() => handleBugCreateClick()}
-				>
-					{showBugForm ? "Cancel" : "Create bug report"}
-				</button>
+					}
+					{project.bugs !== []?
+						<Bugs
+						id={id}
+						showBugStatus={showBugStatus}
+						setShowBugStatus={setShowBugStatus}
+						showBugForm={showBugForm}
+						setShowBugForm={setShowBugForm}
+						authed={authed}
+						bugForm={bugForm}
+						setBugForm={setBugForm}
+						setProject={setProject}
+						project={project}
+						bugs={bugs}
+						setBugs={setBugs}
+						/>
+						:
+						""
+					}
+						{showBugForm ?
+					<BugForm
+					bugForm={bugForm}
+					setBugForm={setBugForm}
+					handleSubmit={handleBugSubmit}
+					showBugStatus={showBugStatus}
+					authed={authed}
+					/>
+					:
+					''}
+					<button
+					onClick={() => handleBugCreateClick()}
+					>
+						{showBugForm ? "Cancel" : "Create bug report"}
+					</button>
+					</div>
 				</div>
 			}
 			</div>

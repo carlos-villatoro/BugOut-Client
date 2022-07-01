@@ -5,6 +5,15 @@
 ---
 
 ---
+## Website Photos
+
+---
+
+## Technologies Used
+- MongoDB
+- React
+- Tailwind 
+- 
 
 ## ERDs
 ![Routing Chart](./public/images/ERDs.jpg)

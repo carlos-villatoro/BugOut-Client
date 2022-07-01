@@ -15,6 +15,9 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
     
     const availableUsers = allMembers.map((member, i) => {
         // console.log('XXXXXX',checkUsers(member._id))
+        if(checkedUsers === [] ){
+            
+        }
         return(
             <div key={member._id}>
                 <p>

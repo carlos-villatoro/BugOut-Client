@@ -23,6 +23,7 @@ function App() {
   // const [bugs, setBugs] = useState([])
   const [allUsers, setAllUsers] = useState([])
   // const [allMembers, setAllMembers] = useState([])
+  const [checkedUsers, setCheckedUsers]= useState([])
   const [showProjectForm, setShowProjectForm] = useState(false)
   const [projectForm, setProjectForm] = useState({
     name: "",
@@ -105,7 +106,7 @@ function App() {
           <Route
             path="/projects/:id"
             element={authed ?
-              <Project currentUser={currentUser} setCurrentUser={setCurrentUser} projects={projects} setProjects={setProjects} allUsers={allUsers} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} setProjectForm={setProjectForm} projectForm={projectForm} authed={authed} /> :
+              <Project currentUser={currentUser} setCurrentUser={setCurrentUser} projects={projects} setProjects={setProjects} allUsers={allUsers} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} setProjectForm={setProjectForm} projectForm={projectForm} authed={authed} checkedUsers={checkedUsers} setCheckedUsers={setCheckedUsers} /> :
               <Navigate to='/login' />
             }
           />
@@ -132,6 +133,8 @@ function App() {
                 showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} setProjectForm={setProjectForm}
                 projectForm={projectForm} 
                 authed={authed} 
+                checkedUsers={checkedUsers} 
+                setCheckedUsers={setCheckedUsers}
                 /> :
               <Navigate to='/' />
             }

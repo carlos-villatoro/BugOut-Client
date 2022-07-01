@@ -1,7 +1,7 @@
 # BugOut
 
 ### Description
-#### BugOut is a development project and bug management system. Users will be able to submit, track and resolve issues easily. Bugs can be created with different priority levels and have its working status changed as the issue becomes resolved. Projects can have a feed of issues with team commentary. Users will be able to sign up as managers or members, each with different permissions.
+#### BugOut is a development project and bug management system. Users will be able to submit, track and resolve issues easily. Bugs can be created with different priority levels and have their working status changed as the issue becomes resolved. Projects can have a feed of issues with team commentary. Users will be able to sign up as managers or members, each with different permissions.
 ---
 
 ---
@@ -10,10 +10,25 @@
 ---
 
 ## Technologies Used
-- MongoDB
-- React
-- Tailwind 
-- 
+- MongoDB was used to manage document-oriented information
+- React was used for building composable user interfaces
+- Tailwind CSS was used to style  
+- Mongoose was used to manage relationships between data, provides schema validation, and is used to translate between objects in code and the representation of those objects in MongoDB
+- Axios was used to make HTTP requests from node. js or XMLHttpRequests from the browser 
+- Jwt-decode helped decoding JWTs tokens
+- Bcrypt was used to build passwords for security
+- Cors was used to make requests from one website to another website in the browser
+- Dotenv allowed us to separate secrets from your source code
+- Express helped manage routing, sessions, HTTP requests, error handling, etc
+- Jsonwebtoken was used to to share security information between two parties: a client and a server.
+
+---
+## Installation Instructions
+- Fork and clone 
+- Enter npm install in the terminal 
+- Install MongoDb
+- Enter nodemon on the server
+- Enter npm run start on the client 
 
 ## ERDs
 ![Routing Chart](./public/images/ERDs.jpg)
@@ -62,3 +77,8 @@ As a user:
 - dark mode
 - tailwind styling
 - Carousel on /project 
+
+---
+## Difficulties 
+- The element that gave us the most issue was the checkboxes 
+- Another minor difficulty was adjusting to tailwind 

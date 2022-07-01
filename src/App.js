@@ -19,10 +19,7 @@ function App() {
   // the currently logged in user will be stored up here in state
   const [currentUser, setCurrentUser] = useState(null)
   const [projects, setProjects] = useState([])
-  // const [users, setUsers] = useState([])
-  // const [bugs, setBugs] = useState([])
   const [allUsers, setAllUsers] = useState([])
-  // const [allMembers, setAllMembers] = useState([])
   const [checkedUsers, setCheckedUsers]= useState([])
   const [showProjectForm, setShowProjectForm] = useState(false)
   const [projectForm, setProjectForm] = useState({
@@ -54,16 +51,10 @@ function App() {
     const findAllUsers = async () => {
       const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users`)
       setAllUsers(response.data)
-      // console.log(response.data)
     }
     findAllUsers()
-    // console.log(currentUser)
   }, []) // happen only once
 
-  // console.log(currentUser)
-  // console.log(allUsers)
-
-  // console.log(currentUser)
 
   // event handler to log the user out when needed
   const handleLogout = () => {
@@ -90,7 +81,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={authed ? <Dashboard handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} projects={projects} setProjects={setProjects} />
+            element={authed ? <Dashboard handleLogout={handleLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} projects={projects} setProjects={setProjects} showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} />
               : <Navigate to="/login" />}
           />
           <Route

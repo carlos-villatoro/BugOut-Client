@@ -26,17 +26,21 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 		console.log(currentUser.id)
 		// console.log(projectForm)
 		try {
-
+			// set projectform's users array to array of checked users id and assign to variable
 			const updatedProjectForm = {...projectForm, users: checkedUsers.map(user => {
 				return user._id
 			})}
-			console.log(updatedProjectForm)
+			// console.log(updatedProjectForm)
+			// create project from updatedProjectForm
 			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/projects`, updatedProjectForm)
-			console.log('post for project submit',response.data)
+			// console.log('post for project submit',response.data)
+			// add project to projects state
 			setProjects([...projects, response.data])
-			console.log(response.data._id)
+			// console.log(response.data._id)
+			// add project to userProjects state
 			setUserProjects([...userProjects, response.data])
-			console.log(response)
+			// console.log(response)
+			// clear the project form
 			setProjectForm({
 				name:"",
 				language:"",
@@ -87,7 +91,10 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 			}
 		}
 		fetchData()
+		//hide project form if page is navigated to 
+		setShowProjectForm(false)
 	}, [])
+	// sort users project by priority
 	const sortedProjects = [...userProjects].sort((a, b) => a.priority > b.priority ? 1 : -1)
 		.map((project) =>
 			//add a Link to specific project
@@ -123,7 +130,7 @@ export default function Profile({ currentUser, handleLogout,  projects, setProje
 		</div>
 	)
 	// console.log(currentUser)
-
+		// if not logged in navigate to login page
 	if (!authed) {
 		return <Navigate to="/login" />
 	}

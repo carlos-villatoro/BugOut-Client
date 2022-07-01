@@ -20,6 +20,7 @@ export default function Bug({project, setProject, showBugForm, setShowBugForm, s
     useEffect(() => {
         const bugs = async () => {
             try {
+                // get all bugs associated w/ specific project
                 const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects/${id}/bugs`)
                 // console.log(response.data)
                 setBugs(response.data)
@@ -30,7 +31,8 @@ export default function Bug({project, setProject, showBugForm, setShowBugForm, s
         }
         bugs()
     }, [])
-    // console.log('this is the id:', id)
+    
+    // map through the bugs and pass down to bug details component
     const allBugs = bugs.map(bug => {
         return (
             <div key={`bugId${bug._id}`} className='m-4'>
@@ -50,19 +52,12 @@ export default function Bug({project, setProject, showBugForm, setShowBugForm, s
                 setProject={setProject}
                 project={project}
                 />
-               
-                
             </div>
         )
     })
 
-    // console.log(bugs.users)
-    // const user = users.map((user) =>{
-    // 	return <h2 key={user._id}>Manager: {user.name}</h2>
-    // })
     return (
         <>
-        <h1 className="text-l">Bugs</h1>
         { allBugs }
         </>
     )

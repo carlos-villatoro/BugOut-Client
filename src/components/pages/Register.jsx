@@ -57,46 +57,62 @@ export default function Register({ currentUser, setCurrentUser, setAuthed }) {
 			<p>{msg}</p>
 
 			<form onSubmit={handleSubmit} className='flex items-center flex-col'>
-				{/* <label htmlFor='name'>Name:</label> */}
-				<input
-					type="text"
-					id="name"
-					placeholder='Enter Username'
-					onChange={e => setName(e.target.value)}
-					value={name}
-					className='"bg-white rounded-md py-1 pl-3  my-4'
-				/>
+				<div className='relative'>
+					<input
+						type="text"
+						id="name"
+						placeholder='...'
+						onChange={e => setName(e.target.value)}
+						value={name}
+						className=' block px-2.5 pb-2.5 pt-4 bg-transparent rounded-md py-1 pl-3  my-4 focus:outline-none focus:ring-0 border-1 border-gray-300 appearance-none focus:border-blue-600 peer'
+					/>
 
-				{/* <label htmlFor='email'>Email:</label> */}
-				<input
-					type="email"
-					id="email"
-					placeholder='Enter Email'
-					onChange={e => setEmail(e.target.value)}
-					value={email}
-					className='"bg-white rounded-md py-1 pl-3  mb-4'
-				/>
+					<label
+						htmlFor='name'
+						className='absolute text-gray-400  duration-300 transform -translate-y-4  top-2 z-10 origin-[0] bg-white dark:bg-gray-600 px-2 peer-focus:px-2 peer-focus:text-[#00E331] peer-focus:dark:text-[#00E331] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1'
+					>Name:</label>
+				</div>
 
-				{/* <label htmlFor='password'>Password:</label> */}
-				<input
-					type="password"
-					id="password"
-					placeholder='Enter Password'
-					onChange={e => setPassword(e.target.value)}
-					value={password}
-					className='"bg-white rounded-md py-1 pl-3  mb-4'
+				<div className='relative'>
+					<input
+						type="email"
+						id="email"
+						placeholder='...'
+						onChange={e => setEmail(e.target.value)}
+						value={email}
+						className='block px-2.5 pb-2.5 pt-4 bg-transparent rounded-md py-1 pl-3  my-4 focus:outline-none focus:ring-0 border-1 border-gray-300 appearance-none focus:border-blue-600 peer'
+					/>
+					<label
+						htmlFor='email'
+						className='absolute text-gray-400  duration-300 transform -translate-y-4  top-2 z-10 origin-[0] bg-white dark:bg-gray-600 px-2 peer-focus:px-2 peer-focus:text-[#00E331] peer-focus:dark:text-[#00E331] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1'
+					>Email:</label>
+				</div>
 
-				/>
-				
-					<p className='flex items-center colum-row  '>Role:</p>
-					<div className='mx-2'>
-						<input
-							type='radio'
-							id='member'
-							name='role'
-							onChange={e => setRole(e.target.value)}
-							value='member'
-						/>
+				<div className='relative'>
+					<input
+						type="password"
+						id="password"
+						placeholder='...'
+						onChange={e => setPassword(e.target.value)}
+						value={password}
+						className='block px-2.5 pb-2.5 pt-4 bg-transparent rounded-md py-1 pl-3  my-4 focus:outline-none focus:ring-0 border-1 border-gray-300 appearance-none focus:border-[#00E331] peer'
+					/>
+					<label
+						htmlFor='password'
+						className='absolute text-gray-400  duration-300 transform -translate-y-4  top-2 z-10 origin-[0] bg-white dark:bg-gray-600 px-2 peer-focus:px-2 peer-focus:text-[#00E331] peer-focus:dark:text-[#00E331] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1'
+					>Password:</label>
+				</div>
+
+				<p className='flex items-center colum-row  '>Role:</p>
+				<div className='mr-2'>
+					<input
+						type='radio'
+						id='member'
+						name='role'
+						onChange={e => setRole(e.target.value)}
+						value='member'
+
+					/>
 					<label htmlFor='member' className='mr-3'>Member</label>
 					<input
 						type='radio'
@@ -104,8 +120,9 @@ export default function Register({ currentUser, setCurrentUser, setAuthed }) {
 						name='role'
 						onChange={e => setRole(e.target.value)}
 						value='manager'
+
 					/>
-					<label htmlFor='manager'>Manager</label>
+					<label htmlFor='manager' >Manager</label>
 				</div>
 
 				<button type="submit" className='rounded-lg buttons px-3 py-1 m-2 '>Register</button>

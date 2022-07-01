@@ -90,7 +90,7 @@ export default function BugForm({authed, bugForm, setBugForm, handleSubmit, show
         :
         ""
         }
-        <button type='submit'>Submit</button>
+        <button type='submit' className='text-xl rounded-lg px-3 py-1 m-4 bg-[#00E331] text-gray-700 '>Submit</button>
     </form>
   )
 }

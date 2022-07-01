@@ -63,7 +63,7 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
     
   return (
     <form 
-    className='flex items-center flex-col'
+    className='flex items-center flex-col text-xl'
     onSubmit={e => handleSubmit(e, projectForm, setProjectForm)}>
         <label htmlFor='name'>Project Name:</label>
         <input
@@ -115,7 +115,7 @@ export default function ProjectForm({currentUser, projectForm, setProjectForm, a
         <label htmlFor='users'>Project Members:</label>
         {availableUsers}
         
-        <button type='submit'>Submit</button>
+        <button type='submit' className='text-xl rounded-lg px-3 py-1 m-4 bg-[#00E331] text-gray-700 '>Submit</button>
 
         {/* <button onClick={() => handleCancelClick()}>Cancel</button> */}
     </form>

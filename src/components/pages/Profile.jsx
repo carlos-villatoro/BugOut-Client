@@ -139,7 +139,7 @@ export default function Profile({ currentUser, handleLogout, projects, setProjec
 					}
 				</div>
 
-				<button onClick={() => handleClick()} className='text-2xl rounded-lg px-3 py-1 m-4 bg-[#00E331] text-gray-700 clicked:transparent' >
+				<button onClick={() => handleClick()} className='text-2xl rounded-lg px-3 py-1 m-4 bg-[#00E331] text-gray-700 ' >
 					{showProjectForm ?
 						'Cancel' :
 						'Add a Project'

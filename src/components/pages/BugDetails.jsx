@@ -82,6 +82,7 @@ export default function BugDetails({project, setProject, bug, handleClick, showB
                 }
                 <button
                 onClick={()=> handleBugEditClick()}
+                className='text-xl rounded-lg px-3 py-1 m-4 bg-[#00E331] text-gray-700 '
                 >
                     {showEditBugForm ?
                     "Cancel"
@@ -89,7 +90,7 @@ export default function BugDetails({project, setProject, bug, handleClick, showB
                     "Edit Bug Form" 
                     }
                 </button>
-                <button onClick={() => {handleDelete()}}>
+                <button onClick={() => {handleDelete()}} className='text-xl rounded-lg px-3 py-1 m-4 bg-[#ff1a1a] text-white '>
                   Delete Bug
                 </button>
     </div>

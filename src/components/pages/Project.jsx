@@ -4,6 +4,7 @@ import axios from "axios"
 import ProjectForm from "../ProjectForm"
 import BugForm from "../BugForm"
 import Bugs from "./Bugs"
+import {AiFillBug} from 'react-icons/ai'
 
 export default function Project({showProjectForm, setShowProjectForm, setProjectForm, projectForm, currentUser, projects, setProjects, allUsers, authed, checkedUsers, setCheckedUsers}) {
 	const { id } = useParams()
@@ -19,7 +20,7 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 		priority: "",
 		status: "Not Started"
 	})
-	const [pm, setPm] = useState()
+
 	
 
 	const handleBugCreateClick = () => {
@@ -98,10 +99,6 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 				// get specific project info
 				const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects/${id}`)
 				// console.log(response.data)
-				const pm = response.data.manager 
-				const pmResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/${pm}`)
-				// console.log(pmResponse.data)
-				setPm(pmResponse.data)
 				setProject(response.data)
 				setUsers(response.data.users)
 			} catch (error) {
@@ -116,14 +113,12 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 		return <h2 key={user._id}>users associated: {user.name}</h2>
 	})
 
-	// const pm = allUsers.filter(user => user._id === project.manager)
-	console.log('😀',pm)
 
 	console.log(project)
 	return (
 		<div >
 			{/* if user is logged in & users exists */}
-			{currentUser && users && pm ? 
+			{currentUser && users ? 
 			// render everything 
 			<div >
 				{/* render project form if showProjectForm is true */}
@@ -146,14 +141,13 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 				<div >
 					<div className='flex justify-center flex-col grayBackground  m-auto  w-[400px] border rounded-2xl py-12 px-8 sm:w-[70%] min-w-[250px]'>
 						<div className='flex items-center flex-col text-2xl m-0'>
-							<h1>Project: {project.name}</h1>
-							<h2>Manager: {pm.name}</h2>
+							<h1 className="font-extrabold">Project: {project.name}</h1>
 							<p>{project.description}</p>
 							<p>Primary Language:{project.language}</p>
 							<p>Priority: {project.priority}</p>
 							{projectUsers}
 							{authed && authed.role === 'manager' ?
-							<button onClick={() => handleProjectEditClick()}>
+							<button onClick={() => handleProjectEditClick()} className='text-xl rounded-lg px-3 py-1 m-4 bg-[#00E331] text-gray-700 '>
 								Edit Project
 							</button>
 							:
@@ -164,7 +158,7 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 					{project.bugs !== []?
 					// if yes render the bugs component
 					<div>
-						<h1 className="text-l">Bugs</h1>
+						<div className="basis-1/2 flex justify-center text-lg" ><AiFillBug size={25} className='mx-1'/></div>
 							<Bugs
 							id={id}
 							showBugStatus={showBugStatus}
@@ -196,7 +190,8 @@ export default function Project({showProjectForm, setShowProjectForm, setProject
 					:
 					''}
 					<button
-					onClick={() => handleBugCreateClick()}
+					onClick={() => handleBugCreateClick() }
+					className='text-xl rounded-lg px-3 py-1 m-4 bg-[#00E331] text-gray-700 clicked:transparent'
 					>
 						{showBugForm ? "Cancel" : "Create bug report"}
 					</button>

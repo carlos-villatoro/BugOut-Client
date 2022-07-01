@@ -35,7 +35,7 @@ export default function Bug({project, setProject, showBugForm, setShowBugForm, s
     // map through the bugs and pass down to bug details component
     const allBugs = bugs.map(bug => {
         return (
-            <div key={`bugId${bug._id}`} className='m-4'>
+            <div key={`bugId${bug._id}`} className='m-4 text-lg'>
                 
                 <BugDetails 
                 bug={bug}
